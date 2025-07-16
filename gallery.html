@@ -16,34 +16,39 @@
                         'inter': ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'dark': '#0a0a0a',
-                        'dark-gray': '#1a1a1a',
-                        'soft-gold': '#d4af37',
+                        'cool-white': '#fafbfc',
+                        'soft-white': '#f8f9fb',
+                        'light-blue': '#f1f5f9',
+                        'cool-gray': '#64748b',
+                        'soft-gray': '#94a3b8',
+                        'light-gray': '#e2e8f0',
+                        'accent-blue': '#3b82f6',
+                        'hover-blue': '#2563eb',
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="font-inter bg-dark text-white">
+<body class="font-inter bg-cool-white text-slate-700">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-cool-white/95 backdrop-blur-sm border-b border-light-gray">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="/" class="text-2xl font-bold text-white hover:text-soft-gold transition-colors">
+                <a href="/" class="text-2xl font-semibold text-slate-800 hover:text-accent-blue transition-colors">
                     SubjectPhoto
                 </a>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8">
-                    <a href="/" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">Home</a>
-                    <a href="/gallery.html" class="text-white hover:text-soft-gold transition-colors font-medium">Gallery</a>
-                    <a href="/about.html" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">About</a>
-                    <a href="/admin.html" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">Admin</a>
+                    <a href="/" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Home</a>
+                    <a href="/gallery.html" class="text-slate-800 hover:text-accent-blue transition-colors font-medium">Gallery</a>
+                    <a href="/about.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">About</a>
+                    <a href="/admin.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Admin</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-white">
+                <button id="mobile-menu-btn" class="md:hidden text-slate-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -53,10 +58,10 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-4">
-                    <a href="/" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">Home</a>
-                    <a href="/gallery.html" class="text-white hover:text-soft-gold transition-colors font-medium">Gallery</a>
-                    <a href="/about.html" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">About</a>
-                    <a href="/admin.html" class="text-gray-300 hover:text-soft-gold transition-colors font-medium">Admin</a>
+                    <a href="/" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Home</a>
+                    <a href="/gallery.html" class="text-slate-800 hover:text-accent-blue transition-colors font-medium">Gallery</a>
+                    <a href="/about.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">About</a>
+                    <a href="/admin.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Admin</a>
                 </div>
             </div>
         </div>
@@ -65,9 +70,9 @@
     <!-- Gallery Header -->
     <section class="pt-24 pb-12 px-6">
         <div class="container mx-auto max-w-6xl text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Gallery</h1>
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                A collection of my finest work, capturing life's most precious moments
+            <h1 class="text-4xl md:text-6xl font-light mb-6 text-slate-800">Gallery</h1>
+            <p class="text-xl text-cool-gray max-w-2xl mx-auto font-light">
+                A collection of moments captured through the lens
             </p>
         </div>
     </section>
@@ -98,208 +103,208 @@
     <!-- Gallery Grid -->
     <section class="px-6 pb-20">
         <div class="container mx-auto max-w-6xl">
-            <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 
                 <!-- Portrait Images -->
-                <div class="gallery-item break-inside-avoid" data-category="portraits">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="portraits">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Portrait"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Natural Beauty</h3>
-                                <p class="text-gray-300 text-sm">Capturing authentic expressions</p>
+                                <h3 class="text-lg font-medium mb-1">Natural Beauty</h3>
+                                <p class="text-slate-200 text-sm font-light">Capturing authentic expressions</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="nature">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="nature">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Mountain landscape"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Mountain Majesty</h3>
-                                <p class="text-gray-300 text-sm">Breathtaking natural landscapes</p>
+                                <h3 class="text-lg font-medium mb-1">Mountain Majesty</h3>
+                                <p class="text-slate-200 text-sm font-light">Breathtaking natural landscapes</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="events">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="events">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Wedding celebration"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Wedding Bliss</h3>
-                                <p class="text-gray-300 text-sm">Capturing love and celebration</p>
+                                <h3 class="text-lg font-medium mb-1">Wedding Bliss</h3>
+                                <p class="text-slate-200 text-sm font-light">Capturing love and celebration</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="portraits">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="portraits">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Professional portrait"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Professional Portrait</h3>
-                                <p class="text-gray-300 text-sm">Corporate and business photography</p>
+                                <h3 class="text-lg font-medium mb-1">Professional Portrait</h3>
+                                <p class="text-slate-200 text-sm font-light">Corporate and business photography</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="architecture">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="architecture">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Modern architecture"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Modern Lines</h3>
-                                <p class="text-gray-300 text-sm">Contemporary architectural design</p>
+                                <h3 class="text-lg font-medium mb-1">Modern Lines</h3>
+                                <p class="text-slate-200 text-sm font-light">Contemporary architectural design</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="nature">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="nature">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Forest path"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Forest Path</h3>
-                                <p class="text-gray-300 text-sm">Journey through nature</p>
+                                <h3 class="text-lg font-medium mb-1">Forest Path</h3>
+                                <p class="text-slate-200 text-sm font-light">Journey through nature</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="events">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="events">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Concert event"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Live Music</h3>
-                                <p class="text-gray-300 text-sm">Energy of live performance</p>
+                                <h3 class="text-lg font-medium mb-1">Live Music</h3>
+                                <p class="text-slate-200 text-sm font-light">Energy of live performance</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="portraits">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="portraits">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Man portrait"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Character Study</h3>
-                                <p class="text-gray-300 text-sm">Revealing personality through lens</p>
+                                <h3 class="text-lg font-medium mb-1">Character Study</h3>
+                                <p class="text-slate-200 text-sm font-light">Revealing personality through lens</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="architecture">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="architecture">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Urban architecture"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Urban Geometry</h3>
-                                <p class="text-gray-300 text-sm">City architecture and design</p>
+                                <h3 class="text-lg font-medium mb-1">Urban Geometry</h3>
+                                <p class="text-slate-200 text-sm font-light">City architecture and design</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="nature">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="nature">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Lake sunset"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Golden Hour</h3>
-                                <p class="text-gray-300 text-sm">Perfect light on water</p>
+                                <h3 class="text-lg font-medium mb-1">Golden Hour</h3>
+                                <p class="text-slate-200 text-sm font-light">Perfect light on water</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="events">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="events">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Birthday celebration"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Birthday Joy</h3>
-                                <p class="text-gray-300 text-sm">Celebrating life's milestones</p>
+                                <h3 class="text-lg font-medium mb-1">Birthday Joy</h3>
+                                <p class="text-slate-200 text-sm font-light">Celebrating life's milestones</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-item break-inside-avoid" data-category="portraits">
-                    <div class="relative group overflow-hidden rounded-lg bg-dark-gray">
+                <div class="gallery-item" data-category="portraits">
+                    <div class="relative group overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
                         <img 
                             src="https://images.unsplash.com/photo-1494790108755-2616c0763ee5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
                             alt="Woman portrait"
-                            class="w-full transition-transform duration-500 group-hover:scale-105"
+                            class="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="absolute bottom-4 left-4 text-white">
-                                <h3 class="text-lg font-semibold mb-1">Elegant Grace</h3>
-                                <p class="text-gray-300 text-sm">Timeless beauty captured</p>
+                                <h3 class="text-lg font-medium mb-1">Elegant Grace</h3>
+                                <p class="text-slate-200 text-sm font-light">Timeless beauty captured</p>
                             </div>
                         </div>
                     </div>
@@ -310,27 +315,27 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark border-t border-gray-800 py-12 px-6">
+    <footer class="bg-white border-t border-light-gray py-12 px-6">
         <div class="container mx-auto max-w-6xl text-center">
-            <h3 class="text-2xl font-bold mb-4 text-soft-gold">SubjectPhoto</h3>
-            <p class="text-gray-400 mb-6">Professional photography services for all occasions</p>
-            <div class="flex justify-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-soft-gold transition-colors">Instagram</a>
-                <a href="#" class="text-gray-400 hover:text-soft-gold transition-colors">Facebook</a>
-                <a href="#" class="text-gray-400 hover:text-soft-gold transition-colors">Contact</a>
+            <h3 class="text-2xl font-medium mb-4 text-slate-800">SubjectPhoto</h3>
+            <p class="text-cool-gray mb-6 font-light">Professional photography services for all occasions</p>
+            <div class="flex justify-center space-x-8">
+                <a href="#" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Instagram</a>
+                <a href="#" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Facebook</a>
+                <a href="#" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Contact</a>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-800">
-                <p class="text-gray-500 text-sm">&copy; 2024 SubjectPhoto. All rights reserved.</p>
+            <div class="mt-8 pt-8 border-t border-light-gray">
+                <p class="text-soft-gray text-sm font-light">&copy; 2024 SubjectPhoto. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <style>
         .filter-btn {
-            @apply px-6 py-3 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-soft-gold transition-all duration-300 font-medium;
+            @apply px-6 py-3 rounded-full border border-light-gray text-cool-gray hover:text-accent-blue hover:border-accent-blue transition-all duration-300 font-medium bg-white;
         }
         .filter-btn.active {
-            @apply bg-soft-gold text-dark border-soft-gold;
+            @apply bg-accent-blue text-white border-accent-blue;
         }
     </style>
 
@@ -365,7 +370,7 @@
                         }, 10);
                     } else {
                         item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
+                        item.style.transform = 'scale(0.95)';
                         setTimeout(() => {
                             item.style.display = 'none';
                         }, 300);
