@@ -271,6 +271,38 @@
                     <!-- Images will be loaded dynamically from localStorage -->
                 </div>
 
+                <!-- Bulk Actions Bar -->
+                <div id="bulk-actions-bar" class="hidden mt-6 p-4 bg-accent-blue/10 rounded-lg border border-accent-blue/20">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm font-medium text-slate-800">
+                                <span id="selected-count">0</span> images selected
+                            </span>
+                            <button id="select-all-btn" class="text-sm text-accent-blue hover:text-hover-blue font-medium">
+                                Select All
+                            </button>
+                            <button id="deselect-all-btn" class="text-sm text-cool-gray hover:text-slate-700 font-medium">
+                                Deselect All
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <select id="bulk-category-select" class="bg-white border border-light-gray rounded-lg px-3 py-1 text-sm text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                                <option value="">Move to category...</option>
+                                <option value="portraits">Portraits</option>
+                                <option value="events">Events</option>
+                                <option value="nature">Nature</option>
+                                <option value="architecture">Architecture</option>
+                            </select>
+                            <button id="bulk-move-btn" class="bg-accent-blue text-white px-4 py-1 rounded-lg hover:bg-hover-blue transition-colors text-sm font-medium">
+                                Move
+                            </button>
+                            <button id="bulk-delete-btn" class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600 transition-colors text-sm font-medium">
+                                Delete Selected
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Empty State -->
                 <div id="empty-state" class="hidden text-center py-12">
                     <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,6 +363,60 @@
                     Delete Category
                 </button>
                 <button id="cancel-delete-category" class="flex-1 bg-light-gray text-slate-700 px-4 py-2 rounded-lg hover:bg-soft-gray hover:text-white transition-colors font-medium">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Edit Modal -->
+    <div id="quick-edit-modal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl border border-light-gray shadow-lg p-6 max-w-md w-full">
+            <h3 class="text-xl font-medium mb-4 text-slate-800">Quick Edit Image</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-slate-700">Image Name</label>
+                    <input type="text" id="quick-edit-name" class="w-full bg-white border border-light-gray rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-slate-700">Category</label>
+                    <select id="quick-edit-category" class="w-full bg-white border border-light-gray rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                        <option value="portraits">Portraits</option>
+                        <option value="events">Events</option>
+                        <option value="nature">Nature</option>
+                        <option value="architecture">Architecture</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex gap-4 mt-6">
+                <button id="save-quick-edit" class="flex-1 bg-accent-blue text-white px-4 py-2 rounded-lg hover:bg-hover-blue transition-colors font-medium">
+                    Save Changes
+                </button>
+                <button id="cancel-quick-edit" class="flex-1 bg-light-gray text-slate-700 px-4 py-2 rounded-lg hover:bg-soft-gray hover:text-white transition-colors font-medium">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Move Category Modal -->
+    <div id="move-category-modal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl border border-light-gray shadow-lg p-6 max-w-md w-full">
+            <h3 class="text-xl font-medium mb-4 text-slate-800">Move to Category</h3>
+            <p class="text-cool-gray mb-4 font-light">Select a new category for this image:</p>
+            <div class="space-y-4">
+                <select id="move-category-select" class="w-full bg-white border border-light-gray rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                    <option value="portraits">Portraits</option>
+                    <option value="events">Events</option>
+                    <option value="nature">Nature</option>
+                    <option value="architecture">Architecture</option>
+                </select>
+            </div>
+            <div class="flex gap-4 mt-6">
+                <button id="confirm-move-category" class="flex-1 bg-accent-blue text-white px-4 py-2 rounded-lg hover:bg-hover-blue transition-colors font-medium">
+                    Move Image
+                </button>
+                <button id="cancel-move-category" class="flex-1 bg-light-gray text-slate-700 px-4 py-2 rounded-lg hover:bg-soft-gray hover:text-white transition-colors font-medium">
                     Cancel
                 </button>
             </div>
@@ -589,19 +675,31 @@
 
             div.innerHTML = `
                 <div class="relative overflow-hidden rounded-lg bg-light-blue">
+                    <!-- Checkbox for bulk selection -->
+                    <div class="absolute top-2 right-2 z-10">
+                        <input type="checkbox" class="image-checkbox w-4 h-4 text-accent-blue bg-white border-gray-300 rounded focus:ring-accent-blue focus:ring-2" data-image-id="${imageId}">
+                    </div>
+                    
                     <img 
                         src="${src}"
                         alt="${name}"
                         class="w-full aspect-square object-cover"
                     >
+                    
+                    <!-- Hover overlay with actions -->
                     <div class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <div class="flex space-x-2">
-                            <button class="edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm">
+                            <button class="quick-edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm" title="Quick Edit">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                                 </svg>
                             </button>
-                            <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm">
+                            <button class="move-category-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm" title="Move Category">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm" title="Delete">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
@@ -609,14 +707,42 @@
                             </button>
                         </div>
                     </div>
+                    
+                    <!-- Category badge -->
                     <div class="absolute top-2 left-2 ${categoryColors[category]} text-xs px-2 py-1 rounded">
                         ${category.charAt(0).toUpperCase() + category.slice(1)}
+                    </div>
+                    
+                    <!-- Image name on bottom -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/70 to-transparent p-2">
+                        <p class="text-white text-xs truncate">${name}</p>
                     </div>
                 </div>
             `;
 
             // Add event listeners
-            div.querySelector('.delete-btn').addEventListener('click', () => showDeleteModal(div));
+            const checkbox = div.querySelector('.image-checkbox');
+            const deleteBtn = div.querySelector('.delete-btn');
+            const quickEditBtn = div.querySelector('.quick-edit-btn');
+            const moveCategoryBtn = div.querySelector('.move-category-btn');
+            
+            // Checkbox selection
+            checkbox.addEventListener('change', () => {
+                updateBulkActionsBar();
+            });
+            
+            // Delete button
+            deleteBtn.addEventListener('click', () => showDeleteModal(div));
+            
+            // Quick edit button
+            quickEditBtn.addEventListener('click', () => {
+                showQuickEditModal(div);
+            });
+            
+            // Move category button
+            moveCategoryBtn.addEventListener('click', () => {
+                showMoveCategoryModal(div);
+            });
             
             return div;
         }
@@ -673,6 +799,107 @@
         cancelDelete.addEventListener('click', () => {
             itemToDelete = null;
             deleteModal.classList.add('hidden');
+        });
+
+        // Bulk operations functionality
+        function updateBulkActionsBar() {
+            const selectedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+            const bulkActionsBar = document.getElementById('bulk-actions-bar');
+            const selectedCount = document.getElementById('selected-count');
+            
+            if (selectedCheckboxes.length > 0) {
+                bulkActionsBar.classList.remove('hidden');
+                selectedCount.textContent = selectedCheckboxes.length;
+            } else {
+                bulkActionsBar.classList.add('hidden');
+            }
+        }
+
+        // Select all functionality
+        document.getElementById('select-all-btn').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.image-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            updateBulkActionsBar();
+        });
+
+        // Deselect all functionality
+        document.getElementById('deselect-all-btn').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.image-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateBulkActionsBar();
+        });
+
+        // Bulk move functionality
+        document.getElementById('bulk-move-btn').addEventListener('click', () => {
+            const selectedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+            const newCategory = document.getElementById('bulk-category-select').value;
+            
+            if (newCategory && selectedCheckboxes.length > 0) {
+                const images = getStoredImages();
+                let updated = false;
+                
+                selectedCheckboxes.forEach(checkbox => {
+                    const imageId = checkbox.getAttribute('data-image-id');
+                    const imageIndex = images.findIndex(img => img.id === imageId);
+                    
+                    if (imageIndex !== -1) {
+                        images[imageIndex].category = newCategory;
+                        updated = true;
+                    }
+                });
+                
+                if (updated) {
+                    saveStoredImages(images);
+                    loadImagesFromStorage();
+                    updateImageCount();
+                    showSuccessMessage(`Moved ${selectedCheckboxes.length} image${selectedCheckboxes.length > 1 ? 's' : ''} to ${newCategory}!`);
+                    
+                    // Clear selection
+                    selectedCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                    updateBulkActionsBar();
+                }
+            }
+        });
+
+        // Bulk delete functionality
+        document.getElementById('bulk-delete-btn').addEventListener('click', () => {
+            const selectedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+            
+            if (selectedCheckboxes.length > 0) {
+                if (confirm(`Are you sure you want to delete ${selectedCheckboxes.length} image${selectedCheckboxes.length > 1 ? 's' : ''}?`)) {
+                    const images = getStoredImages();
+                    let deleted = false;
+                    
+                    selectedCheckboxes.forEach(checkbox => {
+                        const imageId = checkbox.getAttribute('data-image-id');
+                        const imageIndex = images.findIndex(img => img.id === imageId);
+                        
+                        if (imageIndex !== -1) {
+                            images.splice(imageIndex, 1);
+                            deleted = true;
+                        }
+                    });
+                    
+                    if (deleted) {
+                        saveStoredImages(images);
+                        loadImagesFromStorage();
+                        updateImageCount();
+                        showSuccessMessage(`Deleted ${selectedCheckboxes.length} image${selectedCheckboxes.length > 1 ? 's' : ''}!`);
+                        
+                        // Clear selection
+                        selectedCheckboxes.forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        updateBulkActionsBar();
+                    }
+                }
+            }
         });
 
         // Event listeners for delete buttons are added dynamically when images are created
@@ -879,6 +1106,99 @@
         cancelDeleteCategory.addEventListener('click', () => {
             categoryToDelete = null;
             deleteCategoryModal.classList.add('hidden');
+        });
+
+        // Quick Edit Modal functionality
+        const quickEditModal = document.getElementById('quick-edit-modal');
+        const quickEditNameInput = document.getElementById('quick-edit-name');
+        const quickEditCategorySelect = document.getElementById('quick-edit-category');
+        const saveQuickEditBtn = document.getElementById('save-quick-edit');
+        const cancelQuickEditBtn = document.getElementById('cancel-quick-edit');
+        let itemToQuickEdit = null;
+
+        function showQuickEditModal(item) {
+            itemToQuickEdit = item;
+            const imageId = item.getAttribute('data-image-id');
+            const images = getStoredImages();
+            const image = images.find(img => img.id === imageId);
+            
+            if (image) {
+                quickEditNameInput.value = image.name;
+                quickEditCategorySelect.value = image.category;
+                quickEditModal.classList.remove('hidden');
+            }
+        }
+
+        saveQuickEditBtn.addEventListener('click', () => {
+            if (itemToQuickEdit) {
+                const newName = quickEditNameInput.value.trim();
+                const newCategory = quickEditCategorySelect.value;
+                const imageId = itemToQuickEdit.getAttribute('data-image-id');
+                
+                if (newName && newCategory) {
+                    const images = getStoredImages();
+                    const imageIndex = images.findIndex(img => img.id === imageId);
+                    
+                    if (imageIndex !== -1) {
+                        images[imageIndex].name = newName;
+                        images[imageIndex].category = newCategory;
+                        saveStoredImages(images);
+                        
+                        // Update UI
+                        itemToQuickEdit.setAttribute('data-category', newCategory);
+                        itemToQuickEdit.querySelector('p').textContent = newName;
+                        itemToQuickEdit.querySelector('.category-badge').textContent = newCategory.charAt(0).toUpperCase() + newCategory.slice(1);
+                        
+                        showSuccessMessage('Image updated successfully!');
+                    }
+                }
+                
+                itemToQuickEdit = null;
+            }
+            quickEditModal.classList.add('hidden');
+        });
+
+        cancelQuickEditBtn.addEventListener('click', () => {
+            itemToQuickEdit = null;
+            quickEditModal.classList.add('hidden');
+        });
+
+        // Move Category Modal functionality
+        const moveCategoryModal = document.getElementById('move-category-modal');
+        const moveCategorySelect = document.getElementById('move-category-select');
+        const confirmMoveCategoryBtn = document.getElementById('confirm-move-category');
+        const cancelMoveCategoryBtn = document.getElementById('cancel-move-category');
+        let itemToMove = null;
+
+        confirmMoveCategoryBtn.addEventListener('click', () => {
+            if (itemToMove) {
+                const newCategory = moveCategorySelect.value;
+                const imageId = itemToMove.getAttribute('data-image-id');
+                
+                if (newCategory) {
+                    const images = getStoredImages();
+                    const imageIndex = images.findIndex(img => img.id === imageId);
+                    
+                    if (imageIndex !== -1) {
+                        images[imageIndex].category = newCategory;
+                        saveStoredImages(images);
+                        
+                        // Update UI
+                        itemToMove.setAttribute('data-category', newCategory);
+                        itemToMove.querySelector('.category-badge').textContent = newCategory.charAt(0).toUpperCase() + newCategory.slice(1);
+                        
+                        showSuccessMessage('Image moved to category successfully!');
+                    }
+                }
+                
+                itemToMove = null;
+            }
+            moveCategoryModal.classList.add('hidden');
+        });
+
+        cancelMoveCategoryBtn.addEventListener('click', () => {
+            itemToMove = null;
+            moveCategoryModal.classList.add('hidden');
         });
 
         // Featured Work Text Editor functionality
