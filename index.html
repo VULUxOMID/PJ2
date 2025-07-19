@@ -191,13 +191,88 @@
                 >
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-xl font-medium mb-2">${imageData.category.charAt(0).toUpperCase() + imageData.category.slice(1)}</h3>
-                        <p class="text-slate-200 font-light">${imageData.name.replace(/\.[^/.]+$/, "")}</p>
+                        <h3 class="text-xl font-medium mb-2 editable-title cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCustomTitle(imageData.category)}</h3>
+                        <p class="text-slate-200 font-light editable-subtitle cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCategoryDescription(imageData.category)}</p>
                     </div>
                 </div>
             `;
             
+            // Add click event for editing titles
+            const title = div.querySelector('.editable-title');
+            const subtitle = div.querySelector('.editable-subtitle');
+            
+            title.addEventListener('click', (e) => {
+                e.stopPropagation();
+                makeEditable(title);
+            });
+            
+            subtitle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                makeEditable(subtitle);
+            });
+            
             return div;
+        }
+
+        function getCustomTitle(category) {
+            const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            return customDescriptions[category + '_title'] || category.charAt(0).toUpperCase() + category.slice(1) + ' Photography';
+        }
+
+        function getCategoryDescription(category) {
+            const descriptions = {
+                'portraits': 'Capturing authentic expressions',
+                'events': 'Preserving special moments',
+                'nature': 'Beauty of the natural world',
+                'architecture': 'Contemporary architectural design'
+            };
+            
+            // Get custom descriptions from localStorage
+            const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            return customDescriptions[category] || descriptions[category] || 'Professional photography';
+        }
+
+        function makeEditable(element) {
+            const currentText = element.textContent;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentText;
+            input.className = 'bg-white text-slate-800 px-2 py-1 rounded text-sm font-medium w-full';
+            
+            element.textContent = '';
+            element.appendChild(input);
+            input.focus();
+            input.select();
+            
+            function saveEdit() {
+                const newText = input.value.trim();
+                if (newText) {
+                    element.textContent = newText;
+                    
+                    // Save to localStorage
+                    const category = element.getAttribute('data-category');
+                    const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+                    
+                    if (element.classList.contains('editable-title')) {
+                        // Save title
+                        customDescriptions[category + '_title'] = newText;
+                    } else {
+                        // Save subtitle
+                        customDescriptions[category] = newText;
+                    }
+                    
+                    localStorage.setItem('categoryDescriptions', JSON.stringify(customDescriptions));
+                } else {
+                    element.textContent = currentText;
+                }
+            }
+            
+            input.addEventListener('blur', saveEdit);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveEdit();
+                }
+            });
         }
 
         function loadFeaturedWork() {
@@ -224,8 +299,17 @@
                 return;
             }
 
-            // Show up to 3 images as featured work
-            const featuredImages = images.slice(0, 3);
+            // Get unique categories and show one image per category
+            const categories = [...new Set(images.map(img => img.category))];
+            const featuredImages = [];
+            
+            // Take one image from each category, up to 3 categories
+            for (let i = 0; i < Math.min(categories.length, 3); i++) {
+                const categoryImages = images.filter(img => img.category === categories[i]);
+                if (categoryImages.length > 0) {
+                    featuredImages.push(categoryImages[0]); // Take the first image from each category
+                }
+            }
             
             featuredImages.forEach(imageData => {
                 const featuredItem = createFeaturedWorkItem(imageData);
