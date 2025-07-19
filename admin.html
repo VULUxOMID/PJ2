@@ -261,6 +261,28 @@
         </div>
     </section>
 
+    <!-- Featured Work Text Editor -->
+    <section class="px-6 pb-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                <h2 class="text-2xl font-light mb-6 text-slate-800">Featured Work Text Editor</h2>
+                <p class="text-cool-gray mb-6 font-light">Edit the titles and descriptions that appear in the homepage Featured Work section</p>
+                
+                <div id="featured-work-editor" class="space-y-6">
+                    <!-- Dynamic category editors will be loaded here -->
+                </div>
+                
+                <div id="no-categories-message" class="hidden text-center py-8">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2 text-cool-gray">No categories found</h3>
+                    <p class="text-soft-gray font-light">Upload images to create categories for editing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Delete Confirmation Modal -->
     <div id="delete-modal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl border border-light-gray shadow-lg p-6 max-w-md w-full">
@@ -696,6 +718,145 @@
             
             const imageGrid = document.getElementById('image-grid');
             imageGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+        });
+
+        // Featured Work Text Editor functionality
+        function getCustomTitle(category) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            return customData[category + '_title'] || category.charAt(0).toUpperCase() + category.slice(1) + ' Photography';
+        }
+
+        function getCustomDescription(category) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            const defaultDescriptions = {
+                'portraits': 'Capturing authentic expressions',
+                'events': 'Preserving special moments',
+                'nature': 'Beauty of the natural world',
+                'architecture': 'Contemporary architectural design'
+            };
+            return customData[category] || defaultDescriptions[category] || 'Professional photography';
+        }
+
+        function saveCustomTitle(category, title) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            customData[category + '_title'] = title;
+            localStorage.setItem('categoryDescriptions', JSON.stringify(customData));
+        }
+
+        function saveCustomDescription(category, description) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            customData[category] = description;
+            localStorage.setItem('categoryDescriptions', JSON.stringify(customData));
+        }
+
+        function createCategoryEditor(category) {
+            const div = document.createElement('div');
+            div.className = 'bg-light-blue rounded-lg p-6 border border-light-gray';
+            
+            div.innerHTML = `
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-slate-800">${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                    <span class="text-sm text-cool-gray">Category</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-slate-700">Title</label>
+                        <input 
+                            type="text" 
+                            class="w-full bg-white border border-light-gray rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                            value="${getCustomTitle(category)}"
+                            data-category="${category}"
+                            data-field="title"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-slate-700">Description</label>
+                        <textarea 
+                            class="w-full bg-white border border-light-gray rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                            rows="3"
+                            data-category="${category}"
+                            data-field="description"
+                        >${getCustomDescription(category)}</textarea>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button 
+                            class="save-btn bg-accent-blue text-white px-4 py-2 rounded-lg hover:bg-hover-blue transition-colors text-sm font-medium"
+                            data-category="${category}"
+                        >
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners
+            const titleInput = div.querySelector('input[data-field="title"]');
+            const descriptionInput = div.querySelector('textarea[data-field="description"]');
+            const saveBtn = div.querySelector('.save-btn');
+            
+            saveBtn.addEventListener('click', () => {
+                const newTitle = titleInput.value.trim();
+                const newDescription = descriptionInput.value.trim();
+                
+                if (newTitle) {
+                    saveCustomTitle(category, newTitle);
+                }
+                if (newDescription) {
+                    saveCustomDescription(category, newDescription);
+                }
+                
+                showSuccessMessage(`Changes saved for ${category.charAt(0).toUpperCase() + category.slice(1)}!`);
+            });
+            
+            return div;
+        }
+
+        function loadFeaturedWorkEditor() {
+            const editor = document.getElementById('featured-work-editor');
+            const noCategoriesMessage = document.getElementById('no-categories-message');
+            const images = getStoredImages();
+            
+            // Clear existing content
+            editor.innerHTML = '';
+            
+            if (images.length === 0) {
+                noCategoriesMessage.classList.remove('hidden');
+                editor.classList.add('hidden');
+                return;
+            }
+            
+            noCategoriesMessage.classList.add('hidden');
+            editor.classList.remove('hidden');
+            
+            // Get unique categories
+            const categories = [...new Set(images.map(img => img.category))];
+            
+            // Create editors for each category
+            categories.forEach(category => {
+                const categoryEditor = createCategoryEditor(category);
+                editor.appendChild(categoryEditor);
+            });
+        }
+
+        // Load featured work editor when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCategoryDropdowns();
+            loadImagesFromStorage();
+            updateImageCount();
+            loadFeaturedWorkEditor();
+        });
+
+        // Also load when the page becomes visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                updateCategoryDropdowns();
+                loadImagesFromStorage();
+                updateImageCount();
+                loadFeaturedWorkEditor();
+            }
         });
     </script>
 </body>

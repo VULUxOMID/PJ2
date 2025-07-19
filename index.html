@@ -185,7 +185,7 @@
         // Create a featured work item
         function createFeaturedWorkItem(imageData) {
             const div = document.createElement('div');
-            div.className = 'group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300';
+            div.className = 'group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer';
             
             div.innerHTML = `
                 <img 
@@ -195,69 +195,18 @@
                 >
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-xl font-medium mb-2 editable-title cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCustomTitle(imageData.category)}</h3>
-                        <p class="text-slate-200 font-light editable-subtitle cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCustomDescription(imageData.category)}</p>
+                        <h3 class="text-xl font-medium mb-2" data-category="${imageData.category}">${getCustomTitle(imageData.category)}</h3>
+                        <p class="text-slate-200 font-light" data-category="${imageData.category}">${getCustomDescription(imageData.category)}</p>
                     </div>
                 </div>
             `;
             
-            // Add click events for editing
-            const title = div.querySelector('.editable-title');
-            const subtitle = div.querySelector('.editable-subtitle');
-            
-            title.addEventListener('click', (e) => {
-                e.stopPropagation();
-                makeEditable(title);
-            });
-            
-            subtitle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                makeEditable(subtitle);
+            // Add click event to navigate to gallery
+            div.addEventListener('click', () => {
+                window.location.href = '/gallery.html';
             });
             
             return div;
-        }
-
-        // Make text editable
-        function makeEditable(element) {
-            const currentText = element.textContent;
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = currentText;
-            input.className = 'bg-white text-slate-800 px-2 py-1 rounded text-sm font-medium w-full';
-            
-            element.textContent = '';
-            element.appendChild(input);
-            input.focus();
-            input.select();
-            
-            function saveEdit() {
-                const newText = input.value.trim();
-                if (newText) {
-                    element.textContent = newText;
-                    
-                    // Save to localStorage
-                    const category = element.getAttribute('data-category');
-                    const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
-                    
-                    if (element.classList.contains('editable-title')) {
-                        customData[category + '_title'] = newText;
-                    } else {
-                        customData[category] = newText;
-                    }
-                    
-                    localStorage.setItem('categoryDescriptions', JSON.stringify(customData));
-                } else {
-                    element.textContent = currentText;
-                }
-            }
-            
-            input.addEventListener('blur', saveEdit);
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    saveEdit();
-                }
-            });
         }
 
         // Load featured work
