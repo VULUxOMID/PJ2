@@ -80,7 +80,7 @@
     <!-- Filter Bar -->
     <section class="px-6 mb-12">
         <div class="container mx-auto max-w-6xl">
-            <div class="flex flex-wrap justify-center gap-4">
+            <div id="filter-buttons" class="flex flex-wrap justify-center gap-4">
                 <button class="filter-btn active" data-filter="all">
                     All Work
                 </button>
@@ -148,6 +148,82 @@
         function getStoredImages() {
             const stored = localStorage.getItem('adminImages');
             return stored ? JSON.parse(stored) : [];
+        }
+
+        // Custom categories management
+        function getCustomCategories() {
+            const stored = localStorage.getItem('customCategories');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function updateGalleryFilterButtons() {
+            const customCategories = getCustomCategories();
+            const filterButtons = document.getElementById('filter-buttons');
+            
+            // Keep the "All Work" button
+            const allWorkBtn = filterButtons.querySelector('[data-filter="all"]');
+            filterButtons.innerHTML = '';
+            filterButtons.appendChild(allWorkBtn);
+            
+            // Add default categories
+            const defaultCategories = [
+                { value: 'portraits', text: 'Portraits' },
+                { value: 'events', text: 'Events' },
+                { value: 'nature', text: 'Nature' },
+                { value: 'architecture', text: 'Architecture' }
+            ];
+            
+            defaultCategories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.setAttribute('data-filter', category.value);
+                btn.textContent = category.text;
+                filterButtons.appendChild(btn);
+            });
+            
+            // Add custom categories
+            customCategories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.setAttribute('data-filter', category);
+                btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                filterButtons.appendChild(btn);
+            });
+            
+            // Re-attach event listeners
+            attachFilterEventListeners();
+        }
+
+        function attachFilterEventListeners() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+                    const galleryItems = document.querySelectorAll('.gallery-item');
+
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
         }
 
         function createGalleryItem(imageData) {
@@ -218,45 +294,16 @@
             });
         }
 
-        // Gallery filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-                const galleryItems = document.querySelectorAll('.gallery-item');
-
-                galleryItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 10);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
         // Load images when page loads
         document.addEventListener('DOMContentLoaded', () => {
+            updateGalleryFilterButtons();
             loadGalleryImages();
         });
 
         // Also load when the page becomes visible (for browser back/forward)
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
+                updateGalleryFilterButtons();
                 loadGalleryImages();
             }
         });

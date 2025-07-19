@@ -111,48 +111,8 @@
         <div class="container mx-auto max-w-6xl">
             <h2 class="text-3xl md:text-4xl font-light text-center mb-16 text-slate-800">Featured Work</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
-                    <img 
-                        src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Portrait Photography"
-                        class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute bottom-6 left-6 text-white">
-                            <h3 class="text-xl font-medium mb-2">Portraits</h3>
-                            <p class="text-slate-200 font-light">Capturing authentic expressions</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
-                    <img 
-                        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Event Photography"
-                        class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute bottom-6 left-6 text-white">
-                            <h3 class="text-xl font-medium mb-2">Events</h3>
-                            <p class="text-slate-200 font-light">Preserving special moments</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300">
-                    <img 
-                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Nature Photography"
-                        class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute bottom-6 left-6 text-white">
-                            <h3 class="text-xl font-medium mb-2">Nature</h3>
-                            <p class="text-slate-200 font-light">Beauty of the natural world</p>
-                        </div>
-                    </div>
-                </div>
+            <div id="featured-work-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Featured work will be loaded dynamically from localStorage -->
             </div>
         </div>
     </section>
@@ -211,6 +171,78 @@
                     });
                 }
             });
+        });
+
+        // Load featured work from localStorage
+        function getStoredImages() {
+            const stored = localStorage.getItem('adminImages');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function createFeaturedWorkItem(imageData) {
+            const div = document.createElement('div');
+            div.className = 'group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300';
+            
+            div.innerHTML = `
+                <img 
+                    src="${imageData.src}"
+                    alt="${imageData.name}"
+                    class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="text-xl font-medium mb-2">${imageData.category.charAt(0).toUpperCase() + imageData.category.slice(1)}</h3>
+                        <p class="text-slate-200 font-light">${imageData.name.replace(/\.[^/.]+$/, "")}</p>
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        function loadFeaturedWork() {
+            const images = getStoredImages();
+            const featuredGrid = document.getElementById('featured-work-grid');
+            
+            // Clear existing content
+            featuredGrid.innerHTML = '';
+
+            if (images.length === 0) {
+                // Show empty state
+                featuredGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3 class="text-xl font-light mb-2 text-cool-gray">No featured work yet</h3>
+                        <p class="text-soft-gray font-light mb-4">Upload images through the admin panel to see them featured here</p>
+                        <a href="/login.html" class="inline-block bg-accent-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-hover-blue transition-colors text-sm">
+                            Go to Admin
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Show up to 3 images as featured work
+            const featuredImages = images.slice(0, 3);
+            
+            featuredImages.forEach(imageData => {
+                const featuredItem = createFeaturedWorkItem(imageData);
+                featuredGrid.appendChild(featuredItem);
+            });
+        }
+
+        // Load featured work when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedWork();
+        });
+
+        // Also load when the page becomes visible (for browser back/forward)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadFeaturedWork();
+            }
         });
     </script>
 </body>
