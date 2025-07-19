@@ -400,6 +400,20 @@
             mobileMenu.classList.toggle('hidden');
         });
 
+        // Image storage management
+        function getStoredImages() {
+            const stored = localStorage.getItem('adminImages');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveStoredImages(images) {
+            localStorage.setItem('adminImages', JSON.stringify(images));
+        }
+
+        function generateImageId() {
+            return 'img_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
         // File upload functionality
         const uploadArea = document.getElementById('upload-area');
         const fileInput = document.getElementById('file-input');
@@ -433,46 +447,106 @@
             uploadProgress.classList.remove('hidden');
             uploadTotal.textContent = files.length;
             
-            // Simulate upload progress
-            let uploaded = 0;
-            const interval = setInterval(() => {
-                uploaded++;
-                uploadCount.textContent = uploaded;
-                progressBar.style.width = `${(uploaded / files.length) * 100}%`;
-                
-                if (uploaded >= files.length) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        uploadProgress.classList.add('hidden');
-                        progressBar.style.width = '0%';
-                        // Add uploaded images to grid (mock)
-                        addNewImagesToGrid(files);
-                    }, 1000);
-                }
-            }, 300);
-        }
-
-        function addNewImagesToGrid(files) {
-            const imageGrid = document.getElementById('image-grid');
+            // Process files and save to storage
             const category = document.getElementById('category-select').value;
-            
-            Array.from(files).forEach(file => {
+            let uploaded = 0;
+            const newImages = [];
+
+            Array.from(files).forEach((file, index) => {
                 if (file.type.startsWith('image/')) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        const imageItem = createImageItem(e.target.result, file.name, category);
-                        imageGrid.appendChild(imageItem);
-                        updateImageCount();
+                        // Create image object
+                        const imageData = {
+                            id: generateImageId(),
+                            src: e.target.result,
+                            name: file.name,
+                            category: category,
+                            uploadDate: new Date().toISOString(),
+                            size: file.size
+                        };
+                        
+                        newImages.push(imageData);
+                        uploaded++;
+                        uploadCount.textContent = uploaded;
+                        progressBar.style.width = `${(uploaded / files.length) * 100}%`;
+                        
+                        // When all files are processed
+                        if (uploaded >= files.length) {
+                            // Save to localStorage
+                            const existingImages = getStoredImages();
+                            const updatedImages = [...existingImages, ...newImages];
+                            saveStoredImages(updatedImages);
+                            
+                            setTimeout(() => {
+                                uploadProgress.classList.add('hidden');
+                                progressBar.style.width = '0%';
+                                fileInput.value = ''; // Clear file input
+                                
+                                // Refresh the grid to show new images
+                                loadImagesFromStorage();
+                                updateImageCount();
+                                
+                                // Show success message
+                                showSuccessMessage(`Successfully uploaded ${uploaded} image${uploaded > 1 ? 's' : ''}!`);
+                            }, 500);
+                        }
                     };
                     reader.readAsDataURL(file);
                 }
             });
         }
 
-        function createImageItem(src, name, category) {
+        // Load images from storage and display them
+        function loadImagesFromStorage() {
+            const images = getStoredImages();
+            const imageGrid = document.getElementById('image-grid');
+            
+            // Clear existing dynamic images (keep sample images)
+            const dynamicImages = imageGrid.querySelectorAll('.dynamic-image');
+            dynamicImages.forEach(img => img.remove());
+            
+            // Add stored images
+            images.forEach(imageData => {
+                const imageItem = createImageItem(imageData.src, imageData.name, imageData.category, imageData.id);
+                imageItem.classList.add('dynamic-image'); // Mark as dynamic
+                imageGrid.appendChild(imageItem);
+            });
+            
+            checkEmptyState();
+        }
+
+        // Success message function
+        function showSuccessMessage(message) {
+            // Create success message element
+            const successDiv = document.createElement('div');
+            successDiv.className = 'fixed top-24 right-6 bg-green-50 border border-green-200 rounded-lg p-4 z-50 shadow-lg';
+            successDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-green-700 text-sm font-medium">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(successDiv);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (successDiv.parentNode) {
+                    successDiv.remove();
+                }
+            }, 3000);
+        }
+
+        function createImageItem(src, name, category, imageId = null) {
             const div = document.createElement('div');
             div.className = 'image-item group relative';
             div.setAttribute('data-category', category);
+            if (imageId) {
+                div.setAttribute('data-image-id', imageId);
+            }
             
             const categoryColors = {
                 portraits: 'bg-accent-blue text-white',
@@ -545,6 +619,17 @@
 
         confirmDelete.addEventListener('click', () => {
             if (itemToDelete) {
+                const imageId = itemToDelete.getAttribute('data-image-id');
+                
+                // If it's a stored image, remove from localStorage
+                if (imageId) {
+                    const images = getStoredImages();
+                    const updatedImages = images.filter(img => img.id !== imageId);
+                    saveStoredImages(updatedImages);
+                    showSuccessMessage('Image deleted successfully!');
+                }
+                
+                // Remove from DOM
                 itemToDelete.remove();
                 updateImageCount();
                 checkEmptyState();
@@ -570,6 +655,20 @@
             const totalImages = document.querySelectorAll('.image-item').length;
             document.getElementById('total-images').textContent = totalImages;
         }
+
+        // Initialize page - load stored images on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadImagesFromStorage();
+            updateImageCount();
+        });
+
+        // Also load when the page becomes visible (for browser back/forward)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadImagesFromStorage();
+                updateImageCount();
+            }
+        });
 
         function checkEmptyState() {
             const visibleImages = document.querySelectorAll('.image-item:not([style*="display: none"])').length;
