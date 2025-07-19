@@ -279,15 +279,20 @@
             const images = getStoredImages();
             const featuredGrid = document.getElementById('featured-work-grid');
             
+            // Debug: Log what we found
+            console.log('Stored images:', images);
+            console.log('Number of images:', images.length);
+            
             // Clear existing content
             featuredGrid.innerHTML = '';
 
             if (images.length === 0) {
+                console.log('No images found, showing empty state');
                 // Show empty state
                 featuredGrid.innerHTML = `
                     <div class="col-span-full text-center py-12">
                         <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <h3 class="text-xl font-light mb-2 text-cool-gray">No featured work yet</h3>
                         <p class="text-soft-gray font-light mb-4">Upload images through the admin panel to see them featured here</p>
@@ -303,6 +308,8 @@
             const categories = [...new Set(images.map(img => img.category))];
             const featuredImages = [];
             
+            console.log('Found categories:', categories);
+            
             // Take one image from each category, up to 3 categories
             for (let i = 0; i < Math.min(categories.length, 3); i++) {
                 const categoryImages = images.filter(img => img.category === categories[i]);
@@ -310,6 +317,8 @@
                     featuredImages.push(categoryImages[0]); // Take the first image from each category
                 }
             }
+            
+            console.log('Featured images to display:', featuredImages);
             
             featuredImages.forEach(imageData => {
                 const featuredItem = createFeaturedWorkItem(imageData);
@@ -319,15 +328,21 @@
 
         // Load featured work when page loads
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, calling loadFeaturedWork');
             loadFeaturedWork();
         });
 
         // Also load when the page becomes visible (for browser back/forward)
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
+                console.log('Page became visible, calling loadFeaturedWork');
                 loadFeaturedWork();
             }
         });
+
+        // Debug: Check localStorage on page load
+        console.log('localStorage adminImages:', localStorage.getItem('adminImages'));
+        console.log('localStorage categoryDescriptions:', localStorage.getItem('categoryDescriptions'));
     </script>
 </body>
 </html> 
