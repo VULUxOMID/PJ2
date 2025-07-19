@@ -530,6 +530,79 @@
                 opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
                 filterCategory.appendChild(opt);
             });
+            
+            // Update bulk operations dropdown
+            updateBulkOperationsDropdown();
+            
+            // Update modal dropdowns
+            updateModalDropdowns();
+        }
+
+        function updateBulkOperationsDropdown() {
+            const customCategories = getCustomCategories();
+            const bulkCategorySelect = document.getElementById('bulk-category-select');
+            const defaultOptions = ['portraits', 'events', 'nature', 'architecture'];
+            
+            // Clear and rebuild bulk category select
+            bulkCategorySelect.innerHTML = '<option value="">Move to category...</option>';
+            
+            defaultOptions.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+                bulkCategorySelect.appendChild(opt);
+            });
+            
+            // Add custom categories
+            customCategories.forEach(category => {
+                const opt = document.createElement('option');
+                opt.value = category;
+                opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                bulkCategorySelect.appendChild(opt);
+            });
+        }
+
+        function updateModalDropdowns() {
+            const customCategories = getCustomCategories();
+            const defaultOptions = ['portraits', 'events', 'nature', 'architecture'];
+            
+            // Update quick edit modal dropdown
+            const quickEditCategory = document.getElementById('quick-edit-category');
+            if (quickEditCategory) {
+                quickEditCategory.innerHTML = '';
+                defaultOptions.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+                    quickEditCategory.appendChild(opt);
+                });
+                
+                customCategories.forEach(category => {
+                    const opt = document.createElement('option');
+                    opt.value = category;
+                    opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                    quickEditCategory.appendChild(opt);
+                });
+            }
+            
+            // Update move category modal dropdown
+            const moveCategorySelect = document.getElementById('move-category-select');
+            if (moveCategorySelect) {
+                moveCategorySelect.innerHTML = '';
+                defaultOptions.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+                    moveCategorySelect.appendChild(opt);
+                });
+                
+                customCategories.forEach(category => {
+                    const opt = document.createElement('option');
+                    opt.value = category;
+                    opt.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                    moveCategorySelect.appendChild(opt);
+                });
+            }
         }
 
         // File upload functionality
@@ -988,8 +1061,20 @@
         // Category Management functionality
         function getAllCategories() {
             const images = getStoredImages();
-            const categories = [...new Set(images.map(img => img.category))];
-            return categories;
+            const customCategories = getCustomCategories();
+            
+            // Get categories from images
+            const imageCategories = [...new Set(images.map(img => img.category))];
+            
+            // Get all custom categories (including those without images)
+            const allCustomCategories = customCategories.filter(cat => 
+                !['portraits', 'events', 'nature', 'architecture'].includes(cat)
+            );
+            
+            // Combine and remove duplicates
+            const allCategories = [...new Set([...imageCategories, ...allCustomCategories])];
+            
+            return allCategories;
         }
 
         function getCategoryImageCount(category) {
