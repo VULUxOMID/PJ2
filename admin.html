@@ -494,12 +494,14 @@
             const categorySelect = document.getElementById('category-select');
             const filterCategory = document.getElementById('filter-category');
             
-            // Clear existing custom options (keep default ones)
+            // Get all available categories (including default ones that haven't been deleted)
+            const allCategories = getAllCategories();
             const defaultOptions = ['portraits', 'events', 'nature', 'architecture'];
+            const availableDefaultOptions = defaultOptions.filter(option => allCategories.includes(option));
             
             // Update category select
             categorySelect.innerHTML = '';
-            defaultOptions.forEach(option => {
+            availableDefaultOptions.forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
@@ -516,7 +518,7 @@
             
             // Update filter dropdown
             filterCategory.innerHTML = '<option value="all">All Categories</option>';
-            defaultOptions.forEach(option => {
+            availableDefaultOptions.forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
@@ -541,12 +543,14 @@
         function updateBulkOperationsDropdown() {
             const customCategories = getCustomCategories();
             const bulkCategorySelect = document.getElementById('bulk-category-select');
+            const allCategories = getAllCategories();
             const defaultOptions = ['portraits', 'events', 'nature', 'architecture'];
+            const availableDefaultOptions = defaultOptions.filter(option => allCategories.includes(option));
             
             // Clear and rebuild bulk category select
             bulkCategorySelect.innerHTML = '<option value="">Move to category...</option>';
             
-            defaultOptions.forEach(option => {
+            availableDefaultOptions.forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
@@ -564,13 +568,15 @@
 
         function updateModalDropdowns() {
             const customCategories = getCustomCategories();
+            const allCategories = getAllCategories();
             const defaultOptions = ['portraits', 'events', 'nature', 'architecture'];
+            const availableDefaultOptions = defaultOptions.filter(option => allCategories.includes(option));
             
             // Update quick edit modal dropdown
             const quickEditCategory = document.getElementById('quick-edit-category');
             if (quickEditCategory) {
                 quickEditCategory.innerHTML = '';
-                defaultOptions.forEach(option => {
+                availableDefaultOptions.forEach(option => {
                     const opt = document.createElement('option');
                     opt.value = option;
                     opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
@@ -589,7 +595,7 @@
             const moveCategorySelect = document.getElementById('move-category-select');
             if (moveCategorySelect) {
                 moveCategorySelect.innerHTML = '';
-                defaultOptions.forEach(option => {
+                availableDefaultOptions.forEach(option => {
                     const opt = document.createElement('option');
                     opt.value = option;
                     opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
@@ -1071,10 +1077,30 @@
                 !['portraits', 'events', 'nature', 'architecture'].includes(cat)
             );
             
+            // Get default categories that still have images or haven't been deleted
+            const defaultCategories = ['portraits', 'events', 'nature', 'architecture'];
+            const availableDefaultCategories = defaultCategories.filter(cat => 
+                imageCategories.includes(cat) || !hasCategoryBeenDeleted(cat)
+            );
+            
             // Combine and remove duplicates
-            const allCategories = [...new Set([...imageCategories, ...allCustomCategories])];
+            const allCategories = [...new Set([...imageCategories, ...allCustomCategories, ...availableDefaultCategories])];
             
             return allCategories;
+        }
+
+        function hasCategoryBeenDeleted(category) {
+            // Check if a default category has been explicitly deleted
+            const deletedCategories = JSON.parse(localStorage.getItem('deletedCategories') || '[]');
+            return deletedCategories.includes(category);
+        }
+
+        function markCategoryAsDeleted(category) {
+            const deletedCategories = JSON.parse(localStorage.getItem('deletedCategories') || '[]');
+            if (!deletedCategories.includes(category)) {
+                deletedCategories.push(category);
+                localStorage.setItem('deletedCategories', JSON.stringify(deletedCategories));
+            }
         }
 
         function getCategoryImageCount(category) {
@@ -1098,6 +1124,12 @@
             delete customData[category + '_title'];
             delete customData[category];
             localStorage.setItem('categoryDescriptions', JSON.stringify(customData));
+            
+            // Mark default category as deleted if it's a default one
+            const defaultCategories = ['portraits', 'events', 'nature', 'architecture'];
+            if (defaultCategories.includes(category)) {
+                markCategoryAsDeleted(category);
+            }
             
             // Refresh all sections
             updateCategoryDropdowns();
@@ -1125,7 +1157,7 @@
                         <h3 class="text-lg font-medium text-slate-800">${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
                         <p class="text-sm text-cool-gray">${imageCount} image${imageCount !== 1 ? 's' : ''}</p>
                     </div>
-                    ${isCustom ? '<span class="text-xs bg-accent-blue text-white px-2 py-1 rounded">Custom</span>' : ''}
+                    ${isCustom ? '<span class="text-xs bg-accent-blue text-white px-2 py-1 rounded">Custom</span>' : '<span class="text-xs bg-orange-500 text-white px-2 py-1 rounded">Default</span>'}
                 </div>
                 <button 
                     class="delete-category-btn bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors text-sm font-medium"
