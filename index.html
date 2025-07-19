@@ -106,13 +106,13 @@
         </div>
     </main>
 
-    <!-- Featured Work Preview -->
+    <!-- Featured Work Section -->
     <section class="py-20 px-6 bg-soft-white">
         <div class="container mx-auto max-w-6xl">
             <h2 class="text-3xl md:text-4xl font-light text-center mb-16 text-slate-800">Featured Work</h2>
             
             <div id="featured-work-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Featured work will be loaded dynamically from localStorage -->
+                <!-- Dynamic content will be loaded here -->
             </div>
         </div>
     </section>
@@ -159,26 +159,30 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Smooth scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Load featured work from localStorage
+        // Get stored images from localStorage
         function getStoredImages() {
             const stored = localStorage.getItem('adminImages');
             return stored ? JSON.parse(stored) : [];
         }
 
+        // Get custom titles and descriptions
+        function getCustomTitle(category) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            return customData[category + '_title'] || category.charAt(0).toUpperCase() + category.slice(1) + ' Photography';
+        }
+
+        function getCustomDescription(category) {
+            const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+            const defaultDescriptions = {
+                'portraits': 'Capturing authentic expressions',
+                'events': 'Preserving special moments',
+                'nature': 'Beauty of the natural world',
+                'architecture': 'Contemporary architectural design'
+            };
+            return customData[category] || defaultDescriptions[category] || 'Professional photography';
+        }
+
+        // Create a featured work item
         function createFeaturedWorkItem(imageData) {
             const div = document.createElement('div');
             div.className = 'group relative overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300';
@@ -192,12 +196,12 @@
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="absolute bottom-6 left-6 text-white">
                         <h3 class="text-xl font-medium mb-2 editable-title cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCustomTitle(imageData.category)}</h3>
-                        <p class="text-slate-200 font-light editable-subtitle cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCategoryDescription(imageData.category)}</p>
+                        <p class="text-slate-200 font-light editable-subtitle cursor-pointer hover:text-accent-blue transition-colors" data-category="${imageData.category}">${getCustomDescription(imageData.category)}</p>
                     </div>
                 </div>
             `;
             
-            // Add click event for editing titles
+            // Add click events for editing
             const title = div.querySelector('.editable-title');
             const subtitle = div.querySelector('.editable-subtitle');
             
@@ -214,24 +218,7 @@
             return div;
         }
 
-        function getCustomTitle(category) {
-            const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
-            return customDescriptions[category + '_title'] || category.charAt(0).toUpperCase() + category.slice(1) + ' Photography';
-        }
-
-        function getCategoryDescription(category) {
-            const descriptions = {
-                'portraits': 'Capturing authentic expressions',
-                'events': 'Preserving special moments',
-                'nature': 'Beauty of the natural world',
-                'architecture': 'Contemporary architectural design'
-            };
-            
-            // Get custom descriptions from localStorage
-            const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
-            return customDescriptions[category] || descriptions[category] || 'Professional photography';
-        }
-
+        // Make text editable
         function makeEditable(element) {
             const currentText = element.textContent;
             const input = document.createElement('input');
@@ -251,17 +238,15 @@
                     
                     // Save to localStorage
                     const category = element.getAttribute('data-category');
-                    const customDescriptions = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
+                    const customData = JSON.parse(localStorage.getItem('categoryDescriptions') || '{}');
                     
                     if (element.classList.contains('editable-title')) {
-                        // Save title
-                        customDescriptions[category + '_title'] = newText;
+                        customData[category + '_title'] = newText;
                     } else {
-                        // Save subtitle
-                        customDescriptions[category] = newText;
+                        customData[category] = newText;
                     }
                     
-                    localStorage.setItem('categoryDescriptions', JSON.stringify(customDescriptions));
+                    localStorage.setItem('categoryDescriptions', JSON.stringify(customData));
                 } else {
                     element.textContent = currentText;
                 }
@@ -275,24 +260,23 @@
             });
         }
 
+        // Load featured work
         function loadFeaturedWork() {
             const images = getStoredImages();
             const featuredGrid = document.getElementById('featured-work-grid');
             
-            // Debug: Log what we found
+            console.log('Loading featured work...');
             console.log('Stored images:', images);
-            console.log('Number of images:', images.length);
             
             // Clear existing content
             featuredGrid.innerHTML = '';
 
             if (images.length === 0) {
-                console.log('No images found, showing empty state');
                 // Show empty state
                 featuredGrid.innerHTML = `
                     <div class="col-span-full text-center py-12">
                         <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002 2v12a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002 2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <h3 class="text-xl font-light mb-2 text-cool-gray">No featured work yet</h3>
                         <p class="text-soft-gray font-light mb-4">Upload images through the admin panel to see them featured here</p>
@@ -304,22 +288,22 @@
                 return;
             }
 
-            // Get unique categories and show one image per category
+            // Get unique categories
             const categories = [...new Set(images.map(img => img.category))];
             const featuredImages = [];
             
             console.log('Found categories:', categories);
             
-            // Take the MOST RECENT image from each category, up to 3 categories
+            // Take the MOST RECENT image from each category (up to 3)
             for (let i = 0; i < Math.min(categories.length, 3); i++) {
                 const categoryImages = images.filter(img => img.category === categories[i]);
                 if (categoryImages.length > 0) {
-                    // Sort by uploadDate (most recent first) and take the latest
+                    // Sort by uploadDate (most recent first)
                     const sortedImages = categoryImages.sort((a, b) => {
                         if (a.uploadDate && b.uploadDate) {
                             return new Date(b.uploadDate) - new Date(a.uploadDate);
                         }
-                        // Fallback: use id to determine order (higher id = more recent)
+                        // Fallback: use id (higher = more recent)
                         return (b.id || 0) - (a.id || 0);
                     });
                     featuredImages.push(sortedImages[0]);
@@ -328,6 +312,7 @@
             
             console.log('Featured images to display:', featuredImages);
             
+            // Create and display featured items
             featuredImages.forEach(imageData => {
                 const featuredItem = createFeaturedWorkItem(imageData);
                 featuredGrid.appendChild(featuredItem);
@@ -336,19 +321,19 @@
 
         // Load featured work when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM loaded, calling loadFeaturedWork');
+            console.log('DOM loaded, loading featured work...');
             loadFeaturedWork();
         });
 
-        // Also load when the page becomes visible (for browser back/forward)
+        // Reload when page becomes visible
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
-                console.log('Page became visible, calling loadFeaturedWork');
+                console.log('Page became visible, reloading featured work...');
                 loadFeaturedWork();
             }
         });
 
-        // Debug: Check localStorage on page load
+        // Debug: Log localStorage on load
         console.log('localStorage adminImages:', localStorage.getItem('adminImages'));
         console.log('localStorage categoryDescriptions:', localStorage.getItem('categoryDescriptions'));
     </script>
