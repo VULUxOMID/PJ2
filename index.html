@@ -310,11 +310,19 @@
             
             console.log('Found categories:', categories);
             
-            // Take one image from each category, up to 3 categories
+            // Take the MOST RECENT image from each category, up to 3 categories
             for (let i = 0; i < Math.min(categories.length, 3); i++) {
                 const categoryImages = images.filter(img => img.category === categories[i]);
                 if (categoryImages.length > 0) {
-                    featuredImages.push(categoryImages[0]); // Take the first image from each category
+                    // Sort by uploadDate (most recent first) and take the latest
+                    const sortedImages = categoryImages.sort((a, b) => {
+                        if (a.uploadDate && b.uploadDate) {
+                            return new Date(b.uploadDate) - new Date(a.uploadDate);
+                        }
+                        // Fallback: use id to determine order (higher id = more recent)
+                        return (b.id || 0) - (a.id || 0);
+                    });
+                    featuredImages.push(sortedImages[0]);
                 }
             }
             
