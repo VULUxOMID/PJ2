@@ -229,118 +229,7 @@
 
                 <!-- Image Grid -->
                 <div id="image-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    <!-- Sample Images -->
-                    <div class="image-item group relative" data-category="portraits">
-                        <div class="relative overflow-hidden rounded-lg bg-light-blue">
-                            <img 
-                                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                alt="Portrait 1"
-                                class="w-full aspect-square object-cover"
-                            >
-                            <div class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <div class="flex space-x-2">
-                                    <button class="edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="absolute top-2 left-2 bg-accent-blue text-white text-xs px-2 py-1 rounded">
-                                Portraits
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="image-item group relative" data-category="nature">
-                        <div class="relative overflow-hidden rounded-lg bg-light-blue">
-                            <img 
-                                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                alt="Nature 1"
-                                class="w-full aspect-square object-cover"
-                            >
-                            <div class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <div class="flex space-x-2">
-                                    <button class="edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                                Nature
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="image-item group relative" data-category="events">
-                        <div class="relative overflow-hidden rounded-lg bg-light-blue">
-                            <img 
-                                src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                alt="Event 1"
-                                class="w-full aspect-square object-cover"
-                            >
-                            <div class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <div class="flex space-x-2">
-                                    <button class="edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                                Events
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="image-item group relative" data-category="architecture">
-                        <div class="relative overflow-hidden rounded-lg bg-light-blue">
-                            <img 
-                                src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                                alt="Architecture 1"
-                                class="w-full aspect-square object-cover"
-                            >
-                            <div class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <div class="flex space-x-2">
-                                    <button class="edit-btn p-2 bg-white text-slate-700 rounded-lg hover:bg-light-blue transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                    <button class="delete-btn p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">
-                                Architecture
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Images will be loaded dynamically from localStorage -->
                 </div>
 
                 <!-- Empty State -->
@@ -643,13 +532,7 @@
             deleteModal.classList.add('hidden');
         });
 
-        // Add event listeners to existing delete buttons
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.closest('.image-item');
-                showDeleteModal(item);
-            });
-        });
+        // Event listeners for delete buttons are added dynamically when images are created
 
         function updateImageCount() {
             const totalImages = document.querySelectorAll('.image-item').length;
