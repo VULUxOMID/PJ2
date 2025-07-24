@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - SubjectPhoto</title>
+    <title>Admin Dashboard - SubjectPhoto</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Admin dashboard for SubjectPhoto photography management system.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,12 +23,12 @@
                         'inter': ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'cool-white': '#fafbfc',
-                        'soft-white': '#f8f9fb',
-                        'light-blue': '#f1f5f9',
+                        'cool-white': '#f0f9ff',
+                        'soft-white': '#e0f2fe',
+                        'light-blue': '#f0f9ff',
                         'cool-gray': '#64748b',
                         'soft-gray': '#94a3b8',
-                        'light-gray': '#e2e8f0',
+                        'light-gray': '#e0f2fe',
                         'accent-blue': '#3b82f6',
                         'hover-blue': '#2563eb',
                     }
@@ -30,9 +37,9 @@
         }
     </script>
 </head>
-<body class="font-inter bg-cool-white text-slate-700 min-h-screen">
+<body class="font-inter bg-blue-50 text-slate-700 min-h-screen">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-cool-white/95 backdrop-blur-sm border-b border-light-gray">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-blue-50/95 backdrop-blur-sm border-b border-blue-200">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <a href="/" class="text-2xl font-semibold text-slate-800 hover:text-accent-blue transition-colors">
@@ -206,6 +213,64 @@
                                 Add
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Management Section -->
+    <section class="px-6 mb-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                <h2 class="text-2xl font-light mb-6 text-slate-800">Data Management</h2>
+                <p class="text-cool-gray mb-6 font-light">Backup, export, and manage your photography data.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Backup & Export -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-medium text-slate-800">Backup & Export</h3>
+                        <div class="space-y-3">
+                            <button id="export-data" class="w-full bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export All Data
+                            </button>
+                            <button id="backup-data" class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                                </svg>
+                                Create Backup
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Import & Restore -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-medium text-slate-800">Import & Restore</h3>
+                        <div class="space-y-3">
+                            <input type="file" id="import-file" accept=".json" class="hidden">
+                            <button id="import-data" class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                Import Data
+                            </button>
+                            <button id="clear-all-data" class="w-full bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                Clear All Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Messages -->
+                <div id="data-status" class="mt-6 hidden">
+                    <div class="p-4 rounded-lg border">
+                        <p id="status-message" class="text-sm font-medium"></p>
                     </div>
                 </div>
             </div>
@@ -650,7 +715,10 @@
             const newImages = [];
 
             Array.from(files).forEach((file, index) => {
-                if (file.type.startsWith('image/')) {
+                try {
+                    // Validate file before processing
+                    validateImageFile(file);
+                    
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         // Create image object
@@ -690,6 +758,29 @@
                         }
                     };
                     reader.readAsDataURL(file);
+                } catch (error) {
+                    showErrorMessage(`Error with file "${file.name}": ${error.message}`);
+                    uploaded++;
+                    uploadCount.textContent = uploaded;
+                    progressBar.style.width = `${(uploaded / files.length) * 100}%`;
+                    
+                    // Continue processing other files
+                    if (uploaded >= files.length) {
+                        setTimeout(() => {
+                            uploadProgress.classList.add('hidden');
+                            progressBar.style.width = '0%';
+                            fileInput.value = '';
+                            
+                            if (newImages.length > 0) {
+                                const existingImages = getStoredImages();
+                                const updatedImages = [...existingImages, ...newImages];
+                                saveStoredImages(updatedImages);
+                                loadImagesFromStorage();
+                                updateImageCount();
+                                showSuccessMessage(`Successfully uploaded ${newImages.length} image${newImages.length > 1 ? 's' : ''}!`);
+                            }
+                        }, 500);
+                    }
                 }
             });
         }
@@ -735,6 +826,46 @@
                     successDiv.remove();
                 }
             }, 3000);
+        }
+
+        // Error message function
+        function showErrorMessage(message) {
+            // Create error message element
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-24 right-6 bg-red-50 border border-red-200 rounded-lg p-4 z-50 shadow-lg';
+            errorDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-red-700 text-sm font-medium">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(errorDiv);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // File validation function
+        function validateImageFile(file) {
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            
+            if (!allowedTypes.includes(file.type)) {
+                throw new Error('Invalid file type. Please upload JPEG, PNG, GIF, or WebP images only.');
+            }
+            
+            if (file.size > maxSize) {
+                throw new Error('File size too large. Please upload images smaller than 10MB.');
+            }
+            
+            return true;
         }
 
         function createImageItem(src, name, category, imageId = null) {
@@ -1458,6 +1589,141 @@
                 loadCategoryList();
             }
         });
+
+        // Data Management Functions
+        function showStatusMessage(message, type = 'success') {
+            const statusDiv = document.getElementById('data-status');
+            const messageP = document.getElementById('status-message');
+            
+            statusDiv.className = `mt-6 p-4 rounded-lg border ${
+                type === 'success' ? 'bg-green-50 border-green-200' : 
+                type === 'error' ? 'bg-red-50 border-red-200' : 
+                'bg-blue-50 border-blue-200'
+            }`;
+            
+            messageP.className = `text-sm font-medium ${
+                type === 'success' ? 'text-green-700' : 
+                type === 'error' ? 'text-red-700' : 
+                'text-blue-700'
+            }`;
+            
+            messageP.textContent = message;
+            statusDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                statusDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        function exportAllData() {
+            try {
+                const data = {
+                    images: JSON.parse(localStorage.getItem('adminImages') || '[]'),
+                    categories: JSON.parse(localStorage.getItem('categoryDescriptions') || '{}'),
+                    customCategories: JSON.parse(localStorage.getItem('customCategories') || '[]'),
+                    exportDate: new Date().toISOString(),
+                    version: '1.0'
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `subjectphoto-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatusMessage('Data exported successfully!', 'success');
+            } catch (error) {
+                showStatusMessage('Error exporting data: ' + error.message, 'error');
+            }
+        }
+
+        function createBackup() {
+            try {
+                const backup = {
+                    images: JSON.parse(localStorage.getItem('adminImages') || '[]'),
+                    categories: JSON.parse(localStorage.getItem('categoryDescriptions') || '{}'),
+                    customCategories: JSON.parse(localStorage.getItem('customCategories') || '[]'),
+                    backupDate: new Date().toISOString(),
+                    version: '1.0'
+                };
+                
+                localStorage.setItem('subjectphotoBackup', JSON.stringify(backup));
+                showStatusMessage('Backup created successfully!', 'success');
+            } catch (error) {
+                showStatusMessage('Error creating backup: ' + error.message, 'error');
+            }
+        }
+
+        function importData(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Validate data structure
+                    if (!data.images || !Array.isArray(data.images)) {
+                        throw new Error('Invalid data format: missing images array');
+                    }
+                    
+                    // Import data
+                    localStorage.setItem('adminImages', JSON.stringify(data.images));
+                    if (data.categories) {
+                        localStorage.setItem('categoryDescriptions', JSON.stringify(data.categories));
+                    }
+                    if (data.customCategories) {
+                        localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
+                    }
+                    
+                    showStatusMessage('Data imported successfully! Refreshing page...', 'success');
+                    
+                    // Refresh the page to show imported data
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                    
+                } catch (error) {
+                    showStatusMessage('Error importing data: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                try {
+                    localStorage.removeItem('adminImages');
+                    localStorage.removeItem('categoryDescriptions');
+                    localStorage.removeItem('customCategories');
+                    localStorage.removeItem('subjectphotoBackup');
+                    
+                    showStatusMessage('All data cleared successfully! Refreshing page...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                    
+                } catch (error) {
+                    showStatusMessage('Error clearing data: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Data Management Event Listeners
+        document.getElementById('export-data').addEventListener('click', exportAllData);
+        document.getElementById('backup-data').addEventListener('click', createBackup);
+        document.getElementById('import-data').addEventListener('click', () => {
+            document.getElementById('import-file').click();
+        });
+        document.getElementById('import-file').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                importData(e.target.files[0]);
+            }
+        });
+        document.getElementById('clear-all-data').addEventListener('click', clearAllData);
     </script>
 </body>
 </html> 

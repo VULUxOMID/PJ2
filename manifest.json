@@ -1,0 +1,27 @@
+{
+  "name": "SubjectPhoto - Professional Photography",
+  "short_name": "SubjectPhoto",
+  "description": "Professional photography services specializing in portraits, events, nature, and architecture photography",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f9ff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["photography", "business", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr"
+} 
