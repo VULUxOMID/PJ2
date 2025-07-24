@@ -402,6 +402,244 @@
         </div>
     </section>
 
+    <!-- About Page Editor -->
+    <section class="px-6 pb-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                <h2 class="text-2xl font-light mb-6 text-slate-800">About Page Editor</h2>
+                <p class="text-cool-gray mb-6 font-light">Edit the content that appears on the About page</p>
+                
+                <form id="about-page-form" class="space-y-8">
+                    <!-- Photographer Information -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-slate-800 border-b border-light-gray pb-2">Photographer Information</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-slate-700">Photographer Name</label>
+                                <input 
+                                    type="text" 
+                                    id="photographer-name" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="Alex Morgan"
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-slate-700">Location</label>
+                                <input 
+                                    type="text" 
+                                    id="photographer-location" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="San Francisco, CA"
+                                >
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-slate-700">Profile Image URL</label>
+                            <input 
+                                type="url" 
+                                id="photographer-image" 
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                placeholder="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-slate-700">Short Bio</label>
+                            <textarea 
+                                id="photographer-bio" 
+                                rows="3"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                placeholder="Professional photographer with over 8 years of experience capturing life's most meaningful moments. Based in San Francisco, I specialize in creating timeless images that tell authentic stories."
+                            ></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-slate-700">Skills (comma-separated)</label>
+                            <input 
+                                type="text" 
+                                id="photographer-skills" 
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                placeholder="Portrait Photography, Event Coverage, Nature Photography"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- About Sections -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-slate-800 border-b border-light-gray pb-2">About Sections</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-slate-700">"Who I Am" Section</label>
+                            <textarea 
+                                id="who-i-am" 
+                                rows="6"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                placeholder="I'm a passionate photographer who believes every moment has a story worth telling..."
+                            ></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-slate-700">"Why I Shoot" Section</label>
+                            <textarea 
+                                id="why-i-shoot" 
+                                rows="6"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                placeholder="Photography is more than just capturing images—it's about freezing moments in time..."
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-slate-800 border-b border-light-gray pb-2">Services</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="space-y-4">
+                                <h4 class="font-medium text-slate-700">Portrait Photography</h4>
+                                <textarea 
+                                    id="service-portraits" 
+                                    rows="3"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                    placeholder="Professional headshots, family portraits, and personal branding photography that captures your authentic self."
+                                ></textarea>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h4 class="font-medium text-slate-700">Event Coverage</h4>
+                                <textarea 
+                                    id="service-events" 
+                                    rows="3"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                    placeholder="Weddings, corporate events, and special occasions documented with a blend of candid and posed photography."
+                                ></textarea>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h4 class="font-medium text-slate-700">Nature & Landscape</h4>
+                                <textarea 
+                                    id="service-nature" 
+                                    rows="3"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                                    placeholder="Fine art nature photography and landscape prints that showcase the raw beauty of our natural world."
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Awards -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-slate-800 border-b border-light-gray pb-2">Awards & Recognition</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="space-y-4">
+                                <input 
+                                    type="text" 
+                                    id="award-1-year" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="2023"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-1-title" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="Best Portrait Photography"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-1-organization" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="San Francisco Photography Awards"
+                                >
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <input 
+                                    type="text" 
+                                    id="award-2-year" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="2022"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-2-title" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="Wedding Photographer of the Year"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-2-organization" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="California Wedding Association"
+                                >
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <input 
+                                    type="text" 
+                                    id="award-3-year" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="2021"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-3-title" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="Nature Photography Excellence"
+                                >
+                                <input 
+                                    type="text" 
+                                    id="award-3-organization" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="National Geographic Local"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-slate-800 border-b border-light-gray pb-2">Contact Information</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-slate-700">Email Address</label>
+                                <input 
+                                    type="email" 
+                                    id="contact-email" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="alex@subjectphoto.com"
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-slate-700">CTA Button Text</label>
+                                <input 
+                                    type="text" 
+                                    id="cta-button-text" 
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors"
+                                    placeholder="Get In Touch"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-end pt-6 border-t border-light-gray">
+                        <button 
+                            type="submit" 
+                            class="bg-accent-blue text-white px-8 py-3 rounded-lg hover:bg-hover-blue transition-colors font-medium"
+                        >
+                            Save About Page Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Delete Confirmation Modal -->
     <div id="delete-modal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl border border-light-gray shadow-lg p-6 max-w-md w-full">
@@ -1724,6 +1962,102 @@
             }
         });
         document.getElementById('clear-all-data').addEventListener('click', clearAllData);
+
+        // About Page Editor Functions
+        function loadAboutPageData() {
+            const aboutData = JSON.parse(localStorage.getItem('aboutPageData') || '{}');
+            
+            // Load photographer information
+            document.getElementById('photographer-name').value = aboutData.photographerName || 'Alex Morgan';
+            document.getElementById('photographer-location').value = aboutData.photographerLocation || 'San Francisco, CA';
+            document.getElementById('photographer-image').value = aboutData.photographerImage || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+            document.getElementById('photographer-bio').value = aboutData.photographerBio || 'Professional photographer with over 8 years of experience capturing life\'s most meaningful moments. Based in San Francisco, I specialize in creating timeless images that tell authentic stories.';
+            document.getElementById('photographer-skills').value = aboutData.photographerSkills || 'Portrait Photography, Event Coverage, Nature Photography';
+            
+            // Load about sections
+            document.getElementById('who-i-am').value = aboutData.whoIAm || 'I\'m a passionate photographer who believes every moment has a story worth telling. My journey began with a simple camera and an endless curiosity about the world around me. What started as a hobby quickly evolved into a deep passion for capturing the beauty, emotion, and authenticity in every frame.\n\nBorn and raised in California, I developed my artistic eye through years of exploring diverse landscapes and connecting with people from all walks of life. My work is heavily influenced by natural light, genuine emotions, and the unique character that each subject brings to the frame.';
+            document.getElementById('why-i-shoot').value = aboutData.whyIShoot || 'Photography is more than just capturing images—it\'s about freezing moments in time that would otherwise be lost forever. I believe every photograph should evoke emotion, tell a story, and preserve memories that will be cherished for generations.\n\nMy approach is rooted in authenticity. I don\'t just want to take your picture; I want to capture your essence, your personality, and the unique energy you bring to the world. Through my lens, I aim to create art that transcends the ordinary and transforms everyday moments into extraordinary memories.';
+            
+            // Load services
+            document.getElementById('service-portraits').value = aboutData.servicePortraits || 'Professional headshots, family portraits, and personal branding photography that captures your authentic self.';
+            document.getElementById('service-events').value = aboutData.serviceEvents || 'Weddings, corporate events, and special occasions documented with a blend of candid and posed photography.';
+            document.getElementById('service-nature').value = aboutData.serviceNature || 'Fine art nature photography and landscape prints that showcase the raw beauty of our natural world.';
+            
+            // Load awards
+            document.getElementById('award-1-year').value = aboutData.award1Year || '2023';
+            document.getElementById('award-1-title').value = aboutData.award1Title || 'Best Portrait Photography';
+            document.getElementById('award-1-organization').value = aboutData.award1Organization || 'San Francisco Photography Awards';
+            
+            document.getElementById('award-2-year').value = aboutData.award2Year || '2022';
+            document.getElementById('award-2-title').value = aboutData.award2Title || 'Wedding Photographer of the Year';
+            document.getElementById('award-2-organization').value = aboutData.award2Organization || 'California Wedding Association';
+            
+            document.getElementById('award-3-year').value = aboutData.award3Year || '2021';
+            document.getElementById('award-3-title').value = aboutData.award3Title || 'Nature Photography Excellence';
+            document.getElementById('award-3-organization').value = aboutData.award3Organization || 'National Geographic Local';
+            
+            // Load contact information
+            document.getElementById('contact-email').value = aboutData.contactEmail || 'alex@subjectphoto.com';
+            document.getElementById('cta-button-text').value = aboutData.ctaButtonText || 'Get In Touch';
+        }
+
+        function saveAboutPageData() {
+            const aboutData = {
+                photographerName: document.getElementById('photographer-name').value,
+                photographerLocation: document.getElementById('photographer-location').value,
+                photographerImage: document.getElementById('photographer-image').value,
+                photographerBio: document.getElementById('photographer-bio').value,
+                photographerSkills: document.getElementById('photographer-skills').value,
+                whoIAm: document.getElementById('who-i-am').value,
+                whyIShoot: document.getElementById('why-i-shoot').value,
+                servicePortraits: document.getElementById('service-portraits').value,
+                serviceEvents: document.getElementById('service-events').value,
+                serviceNature: document.getElementById('service-nature').value,
+                award1Year: document.getElementById('award-1-year').value,
+                award1Title: document.getElementById('award-1-title').value,
+                award1Organization: document.getElementById('award-1-organization').value,
+                award2Year: document.getElementById('award-2-year').value,
+                award2Title: document.getElementById('award-2-title').value,
+                award2Organization: document.getElementById('award-2-organization').value,
+                award3Year: document.getElementById('award-3-year').value,
+                award3Title: document.getElementById('award-3-title').value,
+                award3Organization: document.getElementById('award-3-organization').value,
+                contactEmail: document.getElementById('contact-email').value,
+                ctaButtonText: document.getElementById('cta-button-text').value,
+                lastUpdated: new Date().toISOString()
+            };
+            
+            localStorage.setItem('aboutPageData', JSON.stringify(aboutData));
+            showSuccessMessage('About page content saved successfully!');
+        }
+
+        // About Page Editor Event Listeners
+        document.getElementById('about-page-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveAboutPageData();
+        });
+
+        // Load about page data when admin panel loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCategoryDropdowns();
+            loadImagesFromStorage();
+            updateImageCount();
+            loadFeaturedWorkEditor();
+            loadCategoryList();
+            loadAboutPageData(); // Load about page data
+        });
+
+        // Also load when the page becomes visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                updateCategoryDropdowns();
+                loadImagesFromStorage();
+                updateImageCount();
+                loadFeaturedWorkEditor();
+                loadCategoryList();
+                loadAboutPageData(); // Load about page data
+            }
+        });
     </script>
 </body>
 </html> 

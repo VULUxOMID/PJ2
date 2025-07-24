@@ -110,22 +110,23 @@
                 <!-- Photographer Image -->
                 <div class="relative">
                     <img 
+                        id="photographer-image"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Alex Morgan - Photographer"
+                        alt="Photographer"
                         class="w-64 h-64 rounded-full object-cover shadow-lg"
                     >
                 </div>
                 
                 <!-- Photographer Info -->
                 <div class="max-w-2xl">
-                    <h2 class="text-3xl md:text-4xl font-light mb-6 text-slate-800">Alex Morgan</h2>
-                    <p class="text-lg text-cool-gray leading-relaxed mb-8 font-light">
+                    <h2 id="photographer-name" class="text-3xl md:text-4xl font-light mb-6 text-slate-800">Alex Morgan</h2>
+                    <p id="photographer-bio" class="text-lg text-cool-gray leading-relaxed mb-8 font-light">
                         Professional photographer with over 8 years of experience capturing life's most meaningful moments. 
                         Based in San Francisco, I specialize in creating timeless images that tell authentic stories.
                     </p>
                     
                     <!-- Skills -->
-                    <div class="flex flex-wrap justify-center gap-3">
+                    <div id="photographer-skills" class="flex flex-wrap justify-center gap-3">
                         <span class="px-4 py-2 bg-light-blue text-cool-gray rounded-full text-sm font-medium">Portrait Photography</span>
                         <span class="px-4 py-2 bg-light-blue text-cool-gray rounded-full text-sm font-medium">Event Coverage</span>
                         <span class="px-4 py-2 bg-light-blue text-cool-gray rounded-full text-sm font-medium">Nature Photography</span>
@@ -142,7 +143,7 @@
             <!-- Who I Am -->
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-light mb-8 text-slate-800">Who I Am</h2>
-                <div class="space-y-6">
+                <div id="who-i-am" class="space-y-6">
                     <p class="text-lg text-cool-gray leading-relaxed font-light">
                         I'm a passionate photographer who believes every moment has a story worth telling. My journey began with a simple camera and an endless curiosity about the world around me. What started as a hobby quickly evolved into a deep passion for capturing the beauty, emotion, and authenticity in every frame.
                     </p>
@@ -163,7 +164,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-medium mb-4 text-slate-800">Portrait Photography</h3>
-                        <p class="text-cool-gray leading-relaxed font-light">
+                        <p id="service-portraits" class="text-cool-gray leading-relaxed font-light">
                             Professional headshots, family portraits, and personal branding photography that captures your authentic self.
                         </p>
                     </div>
@@ -175,7 +176,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-medium mb-4 text-slate-800">Event Coverage</h3>
-                        <p class="text-cool-gray leading-relaxed font-light">
+                        <p id="service-events" class="text-cool-gray leading-relaxed font-light">
                             Weddings, corporate events, and special occasions documented with a blend of candid and posed photography.
                         </p>
                     </div>
@@ -187,7 +188,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-medium mb-4 text-slate-800">Nature & Landscape</h3>
-                        <p class="text-cool-gray leading-relaxed font-light">
+                        <p id="service-nature" class="text-cool-gray leading-relaxed font-light">
                             Fine art nature photography and landscape prints that showcase the raw beauty of our natural world.
                         </p>
                     </div>
@@ -197,7 +198,7 @@
             <!-- Why I Shoot -->
             <div class="text-center">
                 <h2 class="text-3xl md:text-4xl font-light mb-8 text-slate-800">Why I Shoot</h2>
-                <div class="space-y-6">
+                <div id="why-i-shoot" class="space-y-6">
                     <p class="text-lg text-cool-gray leading-relaxed font-light">
                         Photography is more than just capturing images—it's about freezing moments in time that would otherwise be lost forever. I believe every photograph should evoke emotion, tell a story, and preserve memories that will be cherished for generations.
                     </p>
@@ -216,19 +217,19 @@
             <h2 class="text-3xl md:text-4xl font-light mb-12 text-slate-800">Awards & Recognition</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-light-gray">
-                    <div class="text-accent-blue text-2xl font-medium mb-2">2023</div>
-                    <h3 class="text-lg font-medium mb-2 text-slate-800">Best Portrait Photography</h3>
-                    <p class="text-cool-gray font-light">San Francisco Photography Awards</p>
+                    <div id="award-1-year" class="text-accent-blue text-2xl font-medium mb-2">2023</div>
+                    <h3 id="award-1-title" class="text-lg font-medium mb-2 text-slate-800">Best Portrait Photography</h3>
+                    <p id="award-1-organization" class="text-cool-gray font-light">San Francisco Photography Awards</p>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-light-gray">
-                    <div class="text-accent-blue text-2xl font-medium mb-2">2022</div>
-                    <h3 class="text-lg font-medium mb-2 text-slate-800">Wedding Photographer of the Year</h3>
-                    <p class="text-cool-gray font-light">California Wedding Association</p>
+                    <div id="award-2-year" class="text-accent-blue text-2xl font-medium mb-2">2022</div>
+                    <h3 id="award-2-title" class="text-lg font-medium mb-2 text-slate-800">Wedding Photographer of the Year</h3>
+                    <p id="award-2-organization" class="text-cool-gray font-light">California Wedding Association</p>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-light-gray">
-                    <div class="text-accent-blue text-2xl font-medium mb-2">2021</div>
-                    <h3 class="text-lg font-medium mb-2 text-slate-800">Nature Photography Excellence</h3>
-                    <p class="text-cool-gray font-light">National Geographic Local</p>
+                    <div id="award-3-year" class="text-accent-blue text-2xl font-medium mb-2">2021</div>
+                    <h3 id="award-3-title" class="text-lg font-medium mb-2 text-slate-800">Nature Photography Excellence</h3>
+                    <p id="award-3-organization" class="text-cool-gray font-light">National Geographic Local</p>
                 </div>
             </div>
         </div>
@@ -243,6 +244,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
+                    id="contact-email-link"
                     href="mailto:alex@subjectphoto.com" 
                     class="inline-block bg-accent-blue hover:bg-hover-blue text-white px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 transform hover:scale-105"
                 >
@@ -295,6 +297,130 @@
                     });
                 }
             });
+        });
+
+        // Load About Page Content
+        function loadAboutPageContent() {
+            const aboutData = JSON.parse(localStorage.getItem('aboutPageData') || '{}');
+            
+            // Load photographer information
+            if (aboutData.photographerName) {
+                document.getElementById('photographer-name').textContent = aboutData.photographerName;
+            }
+            
+            if (aboutData.photographerImage) {
+                document.getElementById('photographer-image').src = aboutData.photographerImage;
+                document.getElementById('photographer-image').alt = aboutData.photographerName + ' - Photographer';
+            }
+            
+            if (aboutData.photographerBio) {
+                document.getElementById('photographer-bio').textContent = aboutData.photographerBio;
+            }
+            
+            // Load skills
+            if (aboutData.photographerSkills) {
+                const skillsContainer = document.getElementById('photographer-skills');
+                skillsContainer.innerHTML = '';
+                const skills = aboutData.photographerSkills.split(',').map(skill => skill.trim());
+                skills.forEach(skill => {
+                    const skillSpan = document.createElement('span');
+                    skillSpan.className = 'px-4 py-2 bg-light-blue text-cool-gray rounded-full text-sm font-medium';
+                    skillSpan.textContent = skill;
+                    skillsContainer.appendChild(skillSpan);
+                });
+            }
+            
+            // Load about sections
+            if (aboutData.whoIAm) {
+                const whoIAmContainer = document.getElementById('who-i-am');
+                whoIAmContainer.innerHTML = '';
+                const paragraphs = aboutData.whoIAm.split('\n\n');
+                paragraphs.forEach(paragraph => {
+                    if (paragraph.trim()) {
+                        const p = document.createElement('p');
+                        p.className = 'text-lg text-cool-gray leading-relaxed font-light';
+                        p.textContent = paragraph.trim();
+                        whoIAmContainer.appendChild(p);
+                    }
+                });
+            }
+            
+            if (aboutData.whyIShoot) {
+                const whyIShootContainer = document.getElementById('why-i-shoot');
+                whyIShootContainer.innerHTML = '';
+                const paragraphs = aboutData.whyIShoot.split('\n\n');
+                paragraphs.forEach(paragraph => {
+                    if (paragraph.trim()) {
+                        const p = document.createElement('p');
+                        p.className = 'text-lg text-cool-gray leading-relaxed font-light';
+                        p.textContent = paragraph.trim();
+                        whyIShootContainer.appendChild(p);
+                    }
+                });
+            }
+            
+            // Load services
+            if (aboutData.servicePortraits) {
+                document.getElementById('service-portraits').textContent = aboutData.servicePortraits;
+            }
+            if (aboutData.serviceEvents) {
+                document.getElementById('service-events').textContent = aboutData.serviceEvents;
+            }
+            if (aboutData.serviceNature) {
+                document.getElementById('service-nature').textContent = aboutData.serviceNature;
+            }
+            
+            // Load awards
+            if (aboutData.award1Year) {
+                document.getElementById('award-1-year').textContent = aboutData.award1Year;
+            }
+            if (aboutData.award1Title) {
+                document.getElementById('award-1-title').textContent = aboutData.award1Title;
+            }
+            if (aboutData.award1Organization) {
+                document.getElementById('award-1-organization').textContent = aboutData.award1Organization;
+            }
+            
+            if (aboutData.award2Year) {
+                document.getElementById('award-2-year').textContent = aboutData.award2Year;
+            }
+            if (aboutData.award2Title) {
+                document.getElementById('award-2-title').textContent = aboutData.award2Title;
+            }
+            if (aboutData.award2Organization) {
+                document.getElementById('award-2-organization').textContent = aboutData.award2Organization;
+            }
+            
+            if (aboutData.award3Year) {
+                document.getElementById('award-3-year').textContent = aboutData.award3Year;
+            }
+            if (aboutData.award3Title) {
+                document.getElementById('award-3-title').textContent = aboutData.award3Title;
+            }
+            if (aboutData.award3Organization) {
+                document.getElementById('award-3-organization').textContent = aboutData.award3Organization;
+            }
+            
+            // Load contact information
+            if (aboutData.contactEmail) {
+                const contactLink = document.getElementById('contact-email-link');
+                contactLink.href = 'mailto:' + aboutData.contactEmail;
+            }
+            if (aboutData.ctaButtonText) {
+                document.getElementById('contact-email-link').textContent = aboutData.ctaButtonText;
+            }
+        }
+
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAboutPageContent();
+        });
+
+        // Reload when page becomes visible (for updates from admin)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadAboutPageContent();
+            }
         });
     </script>
 </body>
