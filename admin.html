@@ -402,12 +402,145 @@
         </div>
     </section>
 
-    <!-- About Page Editor -->
-    <section class="px-6 pb-8">
-        <div class="container mx-auto max-w-6xl">
-            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
-                <h2 class="text-2xl font-light mb-6 text-slate-800">About Page Editor</h2>
-                <p class="text-cool-gray mb-6 font-light">Edit the content that appears on the About page</p>
+            <!-- Booking Management -->
+        <section class="px-6 mb-8">
+            <div class="container mx-auto max-w-6xl">
+                <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                    <h2 class="text-2xl font-light mb-6 text-slate-800">Booking Management</h2>
+                    <p class="text-cool-gray mb-6 font-light">View and manage all booking requests</p>
+                    
+                    <!-- Booking Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-light-blue rounded-lg p-6 text-center">
+                            <div class="text-2xl font-bold text-accent-blue mb-2" id="total-bookings">0</div>
+                            <div class="text-sm text-cool-gray">Total Bookings</div>
+                        </div>
+                        <div class="bg-light-blue rounded-lg p-6 text-center">
+                            <div class="text-2xl font-bold text-success-green mb-2" id="confirmed-bookings">0</div>
+                            <div class="text-sm text-cool-gray">Confirmed</div>
+                        </div>
+                        <div class="bg-light-blue rounded-lg p-6 text-center">
+                            <div class="text-2xl font-bold text-warning-orange mb-2" id="pending-bookings">0</div>
+                            <div class="text-sm text-cool-gray">Pending</div>
+                        </div>
+                        <div class="bg-light-blue rounded-lg p-6 text-center">
+                            <div class="text-2xl font-bold text-error-red mb-2" id="cancelled-bookings">0</div>
+                            <div class="text-sm text-cool-gray">Cancelled</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Booking Filters -->
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <button class="filter-booking-btn active" data-filter="all">All Bookings</button>
+                        <button class="filter-booking-btn" data-filter="confirmed">Confirmed</button>
+                        <button class="filter-booking-btn" data-filter="pending">Pending</button>
+                        <button class="filter-booking-btn" data-filter="cancelled">Cancelled</button>
+                    </div>
+                    
+                    <!-- Bookings Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-light-gray">
+                                <tr>
+                                    <th class="text-left p-4 font-medium text-slate-700">Client</th>
+                                    <th class="text-left p-4 font-medium text-slate-700">Service</th>
+                                    <th class="text-left p-4 font-medium text-slate-700">Date & Time</th>
+                                    <th class="text-left p-4 font-medium text-slate-700">Status</th>
+                                    <th class="text-left p-4 font-medium text-slate-700">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-table-body">
+                                <!-- Bookings will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- No bookings message -->
+                    <div id="no-bookings" class="text-center py-12 hidden">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3 class="text-xl font-medium text-slate-800 mb-2">No bookings yet</h3>
+                        <p class="text-cool-gray">When clients book sessions, they'll appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Availability Management -->
+        <section class="px-6 mb-8">
+            <div class="container mx-auto max-w-6xl">
+                <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                    <h2 class="text-2xl font-light mb-6 text-slate-800">Availability Management</h2>
+                    <p class="text-cool-gray mb-6 font-light">Mark dates as unavailable or manage your schedule</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Calendar -->
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-800 mb-4">Calendar</h3>
+                            <div class="bg-light-blue rounded-lg p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <button id="admin-prev-month" class="text-accent-blue hover:text-hover-blue transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <h4 id="admin-current-month" class="text-lg font-medium text-slate-800">December 2024</h4>
+                                    <button id="admin-next-month" class="text-accent-blue hover:text-hover-blue transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div id="admin-calendar-grid" class="grid grid-cols-7 gap-1">
+                                    <!-- Calendar will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Controls -->
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-800 mb-4">Quick Actions</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="unavailable-date" class="block text-sm font-medium mb-2 text-slate-700">Mark Date as Unavailable</label>
+                                    <div class="flex gap-2">
+                                        <input type="date" id="unavailable-date" class="flex-1 bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                                        <button id="mark-unavailable" class="bg-error-red text-white px-4 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                                            Mark Unavailable
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label for="available-date" class="block text-sm font-medium mb-2 text-slate-700">Mark Date as Available</label>
+                                    <div class="flex gap-2">
+                                        <input type="date" id="available-date" class="flex-1 bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                                        <button id="mark-available" class="bg-success-green text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
+                                            Mark Available
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4 border-t border-light-gray">
+                                    <h4 class="text-sm font-medium text-slate-700 mb-2">Unavailable Dates</h4>
+                                    <div id="unavailable-dates-list" class="space-y-2">
+                                        <!-- Unavailable dates will be listed here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page Editor -->
+        <section class="px-6 pb-8">
+            <div class="container mx-auto max-w-6xl">
+                <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+                    <h2 class="text-2xl font-light mb-6 text-slate-800">About Page Editor</h2>
+                    <p class="text-cool-gray mb-6 font-light">Edit the content that appears on the About page</p>
                 
                 <form id="about-page-form" class="space-y-8">
                     <!-- Photographer Information -->
@@ -2129,6 +2262,301 @@
           // Set initial href
           if (input.value) btn.href = input.value;
         });
+
+        // Booking Management System
+        let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        let unavailableDates = JSON.parse(localStorage.getItem('unavailableDates') || '[]');
+        let adminCurrentDate = new Date();
+        let currentBookingFilter = 'all';
+
+        // Load booking data
+        function loadBookingData() {
+            updateBookingStats();
+            updateBookingsTable();
+            updateUnavailableDatesList();
+            initAdminCalendar();
+        }
+
+        // Update booking statistics
+        function updateBookingStats() {
+            const total = bookings.length;
+            const confirmed = bookings.filter(b => b.status === 'confirmed').length;
+            const pending = bookings.filter(b => b.status === 'pending').length;
+            const cancelled = bookings.filter(b => b.status === 'cancelled').length;
+
+            document.getElementById('total-bookings').textContent = total;
+            document.getElementById('confirmed-bookings').textContent = confirmed;
+            document.getElementById('pending-bookings').textContent = pending;
+            document.getElementById('cancelled-bookings').textContent = cancelled;
+        }
+
+        // Update bookings table
+        function updateBookingsTable() {
+            const tableBody = document.getElementById('bookings-table-body');
+            const noBookings = document.getElementById('no-bookings');
+            
+            let filteredBookings = bookings;
+            if (currentBookingFilter !== 'all') {
+                filteredBookings = bookings.filter(b => b.status === currentBookingFilter);
+            }
+
+            if (filteredBookings.length === 0) {
+                tableBody.innerHTML = '';
+                noBookings.classList.remove('hidden');
+                return;
+            }
+
+            noBookings.classList.add('hidden');
+            tableBody.innerHTML = '';
+
+            filteredBookings.forEach(booking => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-light-gray hover:bg-light-blue/50';
+                
+                const statusColor = {
+                    'confirmed': 'text-success-green',
+                    'pending': 'text-warning-orange',
+                    'cancelled': 'text-error-red'
+                };
+
+                row.innerHTML = `
+                    <td class="p-4">
+                        <div>
+                            <div class="font-medium text-slate-800">${booking.name}</div>
+                            <div class="text-sm text-cool-gray">${booking.email}</div>
+                            ${booking.phone ? `<div class="text-sm text-cool-gray">${booking.phone}</div>` : ''}
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 bg-light-blue text-cool-gray rounded text-xs font-medium">${booking.service}</span>
+                    </td>
+                    <td class="p-4">
+                        <div>
+                            <div class="font-medium text-slate-800">${new Date(booking.date).toLocaleDateString()}</div>
+                            <div class="text-sm text-cool-gray">${booking.time}</div>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 rounded text-xs font-medium ${statusColor[booking.status]}">${booking.status}</span>
+                    </td>
+                    <td class="p-4">
+                        <div class="flex space-x-2">
+                            <button onclick="viewBookingDetails('${booking.id}')" class="text-accent-blue hover:text-hover-blue text-sm font-medium">View</button>
+                            <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="text-success-green hover:text-green-700 text-sm font-medium">Confirm</button>
+                            <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="text-error-red hover:text-red-700 text-sm font-medium">Cancel</button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // View booking details
+        function viewBookingDetails(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            const details = `
+Client: ${booking.name}
+Email: ${booking.email}
+Phone: ${booking.phone || 'Not provided'}
+Service: ${booking.service}
+Date: ${new Date(booking.date).toLocaleDateString()}
+Time: ${booking.time}
+Duration: ${booking.duration} hour(s)
+Status: ${booking.status}
+Message: ${booking.message || 'No message'}
+            `;
+            
+            alert(details);
+        }
+
+        // Update booking status
+        function updateBookingStatus(bookingId, newStatus) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex === -1) return;
+
+            bookings[bookingIndex].status = newStatus;
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            updateBookingStats();
+            updateBookingsTable();
+            showSuccessMessage(`Booking ${newStatus} successfully!`);
+        }
+
+        // Update unavailable dates list
+        function updateUnavailableDatesList() {
+            const list = document.getElementById('unavailable-dates-list');
+            list.innerHTML = '';
+
+            if (unavailableDates.length === 0) {
+                list.innerHTML = '<p class="text-sm text-cool-gray">No unavailable dates set</p>';
+                return;
+            }
+
+            unavailableDates.forEach(date => {
+                const dateElement = document.createElement('div');
+                dateElement.className = 'flex justify-between items-center p-2 bg-light-gray rounded';
+                dateElement.innerHTML = `
+                    <span class="text-sm text-slate-700">${new Date(date).toLocaleDateString()}</span>
+                    <button onclick="removeUnavailableDate('${date}')" class="text-error-red hover:text-red-700 text-sm">Remove</button>
+                `;
+                list.appendChild(dateElement);
+            });
+        }
+
+        // Remove unavailable date
+        function removeUnavailableDate(date) {
+            unavailableDates = unavailableDates.filter(d => d !== date);
+            localStorage.setItem('unavailableDates', JSON.stringify(unavailableDates));
+            updateUnavailableDatesList();
+            updateAdminCalendar();
+        }
+
+        // Initialize admin calendar
+        function initAdminCalendar() {
+            updateAdminCalendar();
+            setupAdminCalendarNavigation();
+        }
+
+        // Update admin calendar
+        function updateAdminCalendar() {
+            const calendarGrid = document.getElementById('admin-calendar-grid');
+            const currentMonthEl = document.getElementById('admin-current-month');
+            
+            calendarGrid.innerHTML = '';
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            currentMonthEl.textContent = `${monthNames[adminCurrentDate.getMonth()]} ${adminCurrentDate.getFullYear()}`;
+            
+            const firstDay = new Date(adminCurrentDate.getFullYear(), adminCurrentDate.getMonth(), 1);
+            const lastDay = new Date(adminCurrentDate.getFullYear(), adminCurrentDate.getMonth() + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            daysOfWeek.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'text-center text-sm font-medium text-cool-gray py-2';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'text-center py-2 cursor-pointer rounded hover:bg-light-blue transition-colors';
+                
+                if (date.getMonth() === adminCurrentDate.getMonth()) {
+                    dayElement.textContent = date.getDate();
+                    
+                    const dateStr = date.toISOString().split('T')[0];
+                    const isBooked = bookings.some(booking => booking.date === dateStr);
+                    const isUnavailable = unavailableDates.includes(dateStr);
+                    const isPast = date < today;
+                    
+                    if (isPast) {
+                        dayElement.className += ' text-soft-gray bg-light-gray';
+                    } else if (isBooked) {
+                        dayElement.className += ' text-white bg-error-red';
+                        dayElement.title = 'Booked';
+                    } else if (isUnavailable) {
+                        dayElement.className += ' text-white bg-warning-orange';
+                        dayElement.title = 'Unavailable';
+                    } else {
+                        dayElement.className += ' text-slate-800 bg-success-green';
+                        dayElement.title = 'Available';
+                    }
+                } else {
+                    dayElement.className += ' text-soft-gray';
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        // Setup admin calendar navigation
+        function setupAdminCalendarNavigation() {
+            document.getElementById('admin-prev-month').onclick = () => {
+                adminCurrentDate.setMonth(adminCurrentDate.getMonth() - 1);
+                updateAdminCalendar();
+            };
+            
+            document.getElementById('admin-next-month').onclick = () => {
+                adminCurrentDate.setMonth(adminCurrentDate.getMonth() + 1);
+                updateAdminCalendar();
+            };
+        }
+
+        // Setup booking filter buttons
+        document.querySelectorAll('.filter-booking-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-booking-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentBookingFilter = btn.dataset.filter;
+                updateBookingsTable();
+            });
+        });
+
+        // Mark date as unavailable
+        document.getElementById('mark-unavailable').addEventListener('click', () => {
+            const date = document.getElementById('unavailable-date').value;
+            if (!date) {
+                showErrorMessage('Please select a date');
+                return;
+            }
+            
+            if (unavailableDates.includes(date)) {
+                showErrorMessage('Date is already marked as unavailable');
+                return;
+            }
+            
+            unavailableDates.push(date);
+            localStorage.setItem('unavailableDates', JSON.stringify(unavailableDates));
+            updateUnavailableDatesList();
+            updateAdminCalendar();
+            document.getElementById('unavailable-date').value = '';
+            showSuccessMessage('Date marked as unavailable');
+        });
+
+        // Mark date as available
+        document.getElementById('mark-available').addEventListener('click', () => {
+            const date = document.getElementById('available-date').value;
+            if (!date) {
+                showErrorMessage('Please select a date');
+                return;
+            }
+            
+            if (!unavailableDates.includes(date)) {
+                showErrorMessage('Date is not marked as unavailable');
+                return;
+            }
+            
+            unavailableDates = unavailableDates.filter(d => d !== date);
+            localStorage.setItem('unavailableDates', JSON.stringify(unavailableDates));
+            updateUnavailableDatesList();
+            updateAdminCalendar();
+            document.getElementById('available-date').value = '';
+            showSuccessMessage('Date marked as available');
+        });
+
+        // Load booking data on page load
+        document.addEventListener('DOMContentLoaded', loadBookingData);
     </script>
+
+    <style>
+        .filter-booking-btn {
+            @apply px-4 py-2 rounded-lg border border-light-gray text-cool-gray hover:text-accent-blue hover:border-accent-blue transition-all duration-300 font-medium bg-white text-sm;
+        }
+        .filter-booking-btn.active {
+            @apply bg-accent-blue text-white border-accent-blue;
+        }
+    </style>
 </body>
 </html> 
