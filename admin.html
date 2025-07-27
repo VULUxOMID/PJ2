@@ -437,11 +437,40 @@
                         <button class="filter-booking-btn" data-filter="cancelled">Cancelled</button>
                     </div>
                     
+                    <!-- Search and Export -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <div class="flex-1">
+                            <input 
+                                type="text" 
+                                id="booking-search" 
+                                placeholder="Search bookings by name, email, or service..." 
+                                class="w-full px-4 py-2 border border-light-gray rounded-lg focus:outline-none focus:border-accent-blue transition-colors"
+                            >
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="export-bookings" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium text-sm">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export CSV
+                            </button>
+                            <button id="bulk-confirm" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Confirm Selected
+                            </button>
+                        </div>
+                    </div>
+                    
                     <!-- Bookings Table -->
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm">
                             <thead class="bg-light-gray">
                                 <tr>
+                                    <th class="text-left p-4 font-medium text-slate-700">
+                                        <input type="checkbox" id="select-all-bookings" class="rounded border-light-gray">
+                                    </th>
                                     <th class="text-left p-4 font-medium text-slate-700">Client</th>
                                     <th class="text-left p-4 font-medium text-slate-700">Service</th>
                                     <th class="text-left p-4 font-medium text-slate-700">Date & Time</th>
@@ -2268,6 +2297,8 @@
         let unavailableDates = JSON.parse(localStorage.getItem('unavailableDates') || '[]');
         let adminCurrentDate = new Date();
         let currentBookingFilter = 'all';
+        let currentSearchTerm = '';
+        let selectedBookings = new Set();
 
         // Load booking data
         function loadBookingData() {
@@ -2275,19 +2306,132 @@
             updateBookingsTable();
             updateUnavailableDatesList();
             initAdminCalendar();
+            setupSearchAndExport();
         }
 
-        // Update booking statistics
-        function updateBookingStats() {
-            const total = bookings.length;
-            const confirmed = bookings.filter(b => b.status === 'confirmed').length;
-            const pending = bookings.filter(b => b.status === 'pending').length;
-            const cancelled = bookings.filter(b => b.status === 'cancelled').length;
+        // Setup search and export functionality
+        function setupSearchAndExport() {
+            // Search functionality
+            document.getElementById('booking-search').addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value.toLowerCase();
+                updateBookingsTable();
+            });
 
-            document.getElementById('total-bookings').textContent = total;
-            document.getElementById('confirmed-bookings').textContent = confirmed;
-            document.getElementById('pending-bookings').textContent = pending;
-            document.getElementById('cancelled-bookings').textContent = cancelled;
+            // Export functionality
+            document.getElementById('export-bookings').addEventListener('click', exportBookingsToCSV);
+
+            // Bulk actions
+            document.getElementById('select-all-bookings').addEventListener('change', (e) => {
+                const checkboxes = document.querySelectorAll('.booking-checkbox');
+                checkboxes.forEach(cb => {
+                    cb.checked = e.target.checked;
+                    if (e.target.checked) {
+                        selectedBookings.add(cb.value);
+                    } else {
+                        selectedBookings.delete(cb.value);
+                    }
+                });
+                updateBulkActionButton();
+            });
+
+            document.getElementById('bulk-confirm').addEventListener('click', bulkConfirmBookings);
+        }
+
+        // Export bookings to CSV
+        function exportBookingsToCSV() {
+            const filteredBookings = getFilteredBookings();
+            
+            if (filteredBookings.length === 0) {
+                showErrorMessage('No bookings to export.');
+                return;
+            }
+
+            const headers = ['ID', 'Name', 'Email', 'Phone', 'Service', 'Date', 'Time', 'Duration', 'Status', 'Message', 'Created At'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredBookings.map(booking => [
+                    booking.id,
+                    `"${booking.name}"`,
+                    booking.email,
+                    booking.phone || '',
+                    booking.service,
+                    booking.date,
+                    booking.time,
+                    booking.duration,
+                    booking.status,
+                    `"${booking.message || ''}"`,
+                    booking.createdAt
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bookings_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            showSuccessMessage('Bookings exported successfully!');
+        }
+
+        // Get filtered bookings based on current filter and search
+        function getFilteredBookings() {
+            let filtered = bookings;
+            
+            // Apply status filter
+            if (currentBookingFilter !== 'all') {
+                filtered = filtered.filter(b => b.status === currentBookingFilter);
+            }
+            
+            // Apply search filter
+            if (currentSearchTerm) {
+                filtered = filtered.filter(b => 
+                    b.name.toLowerCase().includes(currentSearchTerm) ||
+                    b.email.toLowerCase().includes(currentSearchTerm) ||
+                    b.service.toLowerCase().includes(currentSearchTerm) ||
+                    (b.phone && b.phone.toLowerCase().includes(currentSearchTerm))
+                );
+            }
+            
+            return filtered;
+        }
+
+        // Bulk confirm bookings
+        function bulkConfirmBookings() {
+            if (selectedBookings.size === 0) {
+                showErrorMessage('Please select bookings to confirm.');
+                return;
+            }
+
+            const confirmedCount = selectedBookings.size;
+            bookings.forEach(booking => {
+                if (selectedBookings.has(booking.id)) {
+                    booking.status = 'confirmed';
+                }
+            });
+
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            selectedBookings.clear();
+            document.getElementById('select-all-bookings').checked = false;
+            
+            updateBookingStats();
+            updateBookingsTable();
+            showSuccessMessage(`${confirmedCount} booking(s) confirmed successfully!`);
+        }
+
+        // Update bulk action button state
+        function updateBulkActionButton() {
+            const bulkBtn = document.getElementById('bulk-confirm');
+            if (selectedBookings.size > 0) {
+                bulkBtn.textContent = `Confirm Selected (${selectedBookings.size})`;
+                bulkBtn.disabled = false;
+            } else {
+                bulkBtn.textContent = 'Confirm Selected';
+                bulkBtn.disabled = true;
+            }
         }
 
         // Update bookings table
@@ -2295,10 +2439,7 @@
             const tableBody = document.getElementById('bookings-table-body');
             const noBookings = document.getElementById('no-bookings');
             
-            let filteredBookings = bookings;
-            if (currentBookingFilter !== 'all') {
-                filteredBookings = bookings.filter(b => b.status === currentBookingFilter);
-            }
+            const filteredBookings = getFilteredBookings();
 
             if (filteredBookings.length === 0) {
                 tableBody.innerHTML = '';
@@ -2321,6 +2462,9 @@
 
                 row.innerHTML = `
                     <td class="p-4">
+                        <input type="checkbox" class="booking-checkbox rounded border-light-gray" value="${booking.id}" ${selectedBookings.has(booking.id) ? 'checked' : ''}>
+                    </td>
+                    <td class="p-4">
                         <div>
                             <div class="font-medium text-slate-800">${booking.name}</div>
                             <div class="text-sm text-cool-gray">${booking.email}</div>
@@ -2333,7 +2477,7 @@
                     <td class="p-4">
                         <div>
                             <div class="font-medium text-slate-800">${new Date(booking.date).toLocaleDateString()}</div>
-                            <div class="text-sm text-cool-gray">${booking.time}</div>
+                            <div class="text-sm text-cool-gray">${booking.time} (${booking.duration}h)</div>
                         </div>
                     </td>
                     <td class="p-4">
@@ -2350,6 +2494,31 @@
                 
                 tableBody.appendChild(row);
             });
+
+            // Add event listeners to checkboxes
+            document.querySelectorAll('.booking-checkbox').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        selectedBookings.add(e.target.value);
+                    } else {
+                        selectedBookings.delete(e.target.value);
+                    }
+                    updateBulkActionButton();
+                });
+            });
+        }
+
+        // Update booking statistics
+        function updateBookingStats() {
+            const total = bookings.length;
+            const confirmed = bookings.filter(b => b.status === 'confirmed').length;
+            const pending = bookings.filter(b => b.status === 'pending').length;
+            const cancelled = bookings.filter(b => b.status === 'cancelled').length;
+
+            document.getElementById('total-bookings').textContent = total;
+            document.getElementById('confirmed-bookings').textContent = confirmed;
+            document.getElementById('pending-bookings').textContent = pending;
+            document.getElementById('cancelled-bookings').textContent = cancelled;
         }
 
         // View booking details
@@ -2358,6 +2527,7 @@
             if (!booking) return;
 
             const details = `
+Booking ID: ${booking.id}
 Client: ${booking.name}
 Email: ${booking.email}
 Phone: ${booking.phone || 'Not provided'}
@@ -2367,22 +2537,95 @@ Time: ${booking.time}
 Duration: ${booking.duration} hour(s)
 Status: ${booking.status}
 Message: ${booking.message || 'No message'}
+Created: ${new Date(booking.createdAt).toLocaleString()}
             `;
             
-            alert(details);
+            // Create a modal for better UX
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-md mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-slate-800">Booking Details</h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-cool-gray hover:text-slate-800">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div><strong>Booking ID:</strong> ${booking.id}</div>
+                        <div><strong>Client:</strong> ${booking.name}</div>
+                        <div><strong>Email:</strong> ${booking.email}</div>
+                        <div><strong>Phone:</strong> ${booking.phone || 'Not provided'}</div>
+                        <div><strong>Service:</strong> ${booking.service}</div>
+                        <div><strong>Date:</strong> ${new Date(booking.date).toLocaleDateString()}</div>
+                        <div><strong>Time:</strong> ${booking.time}</div>
+                        <div><strong>Duration:</strong> ${booking.duration} hour(s)</div>
+                        <div><strong>Status:</strong> <span class="px-2 py-1 rounded text-xs font-medium ${getStatusColor(booking.status)}">${booking.status}</span></div>
+                        <div><strong>Message:</strong> ${booking.message || 'No message'}</div>
+                        <div><strong>Created:</strong> ${new Date(booking.createdAt).toLocaleString()}</div>
+                    </div>
+                    <div class="flex gap-2 mt-6">
+                        <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="flex-1 bg-success-green text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm">
+                            Confirm
+                        </button>
+                        <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="flex-1 bg-error-red text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm">
+                            Cancel
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-light-gray text-slate-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
 
-        // Update booking status
+        // Get status color class
+        function getStatusColor(status) {
+            const statusColors = {
+                'confirmed': 'bg-success-green text-white',
+                'pending': 'bg-warning-orange text-white',
+                'cancelled': 'bg-error-red text-white'
+            };
+            return statusColors[status] || 'bg-light-gray text-slate-700';
+        }
+
+        // Update booking status with confirmation
         function updateBookingStatus(bookingId, newStatus) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            const action = newStatus === 'confirmed' ? 'confirm' : 'cancel';
+            const confirmed = confirm(`Are you sure you want to ${action} this booking for ${booking.name}?`);
+            
+            if (!confirmed) return;
+
             const bookingIndex = bookings.findIndex(b => b.id === bookingId);
             if (bookingIndex === -1) return;
 
             bookings[bookingIndex].status = newStatus;
+            bookings[bookingIndex].updatedAt = new Date().toISOString();
             localStorage.setItem('bookings', JSON.stringify(bookings));
             
             updateBookingStats();
             updateBookingsTable();
             showSuccessMessage(`Booking ${newStatus} successfully!`);
+            
+            // Close modal if open
+            const modal = document.querySelector('.fixed');
+            if (modal) {
+                modal.remove();
+            }
         }
 
         // Update unavailable dates list

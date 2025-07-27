@@ -148,23 +148,54 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="client-name" class="block text-sm font-medium mb-2 text-slate-700">Full Name *</label>
-                                <input type="text" id="client-name" required class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors" placeholder="Your full name">
+                                <input 
+                                    type="text" 
+                                    id="client-name" 
+                                    required 
+                                    aria-describedby="name-error"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors" 
+                                    placeholder="Your full name"
+                                    autocomplete="name"
+                                >
+                                <div id="name-error" class="text-error-red text-sm mt-1 hidden"></div>
                             </div>
                             <div>
                                 <label for="client-email" class="block text-sm font-medium mb-2 text-slate-700">Email *</label>
-                                <input type="email" id="client-email" required class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors" placeholder="your@email.com">
+                                <input 
+                                    type="email" 
+                                    id="client-email" 
+                                    required 
+                                    aria-describedby="email-error"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors" 
+                                    placeholder="your@email.com"
+                                    autocomplete="email"
+                                >
+                                <div id="email-error" class="text-error-red text-sm mt-1 hidden"></div>
                             </div>
                         </div>
                         
                         <div>
                             <label for="client-phone" class="block text-sm font-medium mb-2 text-slate-700">Phone Number</label>
-                            <input type="tel" id="client-phone" class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors" placeholder="(555) 123-4567">
+                            <input 
+                                type="tel" 
+                                id="client-phone" 
+                                aria-describedby="phone-error"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors" 
+                                placeholder="(555) 123-4567"
+                                autocomplete="tel"
+                            >
+                            <div id="phone-error" class="text-error-red text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Service Selection -->
                         <div>
                             <label for="service-type" class="block text-sm font-medium mb-2 text-slate-700">Service Type *</label>
-                            <select id="service-type" required class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                            <select 
+                                id="service-type" 
+                                required 
+                                aria-describedby="service-error"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors"
+                            >
                                 <option value="">Select a service</option>
                                 <option value="portraits">Portrait Photography</option>
                                 <option value="events">Event Photography</option>
@@ -173,17 +204,30 @@
                                 <option value="architecture">Architecture Photography</option>
                                 <option value="other">Other</option>
                             </select>
+                            <div id="service-error" class="text-error-red text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Date and Time Selection -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="booking-date" class="block text-sm font-medium mb-2 text-slate-700">Preferred Date *</label>
-                                <input type="date" id="booking-date" required class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                                <input 
+                                    type="date" 
+                                    id="booking-date" 
+                                    required 
+                                    aria-describedby="date-error"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors"
+                                >
+                                <div id="date-error" class="text-error-red text-sm mt-1 hidden"></div>
                             </div>
                             <div>
                                 <label for="booking-time" class="block text-sm font-medium mb-2 text-slate-700">Preferred Time *</label>
-                                <select id="booking-time" required class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                                <select 
+                                    id="booking-time" 
+                                    required 
+                                    aria-describedby="time-error"
+                                    class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors"
+                                >
                                     <option value="">Select time</option>
                                     <option value="09:00">9:00 AM</option>
                                     <option value="10:00">10:00 AM</option>
@@ -196,31 +240,49 @@
                                     <option value="17:00">5:00 PM</option>
                                     <option value="18:00">6:00 PM</option>
                                 </select>
+                                <div id="time-error" class="text-error-red text-sm mt-1 hidden"></div>
                             </div>
                         </div>
 
                         <!-- Session Duration -->
                         <div>
                             <label for="session-duration" class="block text-sm font-medium mb-2 text-slate-700">Session Duration</label>
-                            <select id="session-duration" class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors">
+                            <select 
+                                id="session-duration" 
+                                aria-describedby="duration-error"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors"
+                            >
                                 <option value="1">1 Hour</option>
                                 <option value="2">2 Hours</option>
                                 <option value="3">3 Hours</option>
                                 <option value="4">4 Hours</option>
                                 <option value="full-day">Full Day</option>
                             </select>
+                            <div id="duration-error" class="text-error-red text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Message -->
                         <div>
                             <label for="client-message" class="block text-sm font-medium mb-2 text-slate-700">Additional Details</label>
-                            <textarea id="client-message" rows="4" class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue transition-colors resize-none" placeholder="Tell us about your vision, location preferences, special requirements, or any questions you have..."></textarea>
+                            <textarea 
+                                id="client-message" 
+                                rows="4" 
+                                aria-describedby="message-error"
+                                class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors resize-none" 
+                                placeholder="Tell us about your vision, location preferences, special requirements, or any questions you have..."
+                            ></textarea>
+                            <div id="message-error" class="text-error-red text-sm mt-1 hidden"></div>
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-full bg-accent-blue text-white px-8 py-4 rounded-lg hover:bg-hover-blue transition-colors font-medium text-lg">
+                        <button 
+                            type="submit" 
+                            class="w-full bg-accent-blue text-white px-8 py-4 rounded-lg hover:bg-hover-blue transition-colors font-medium text-lg focus:outline-none focus:ring-2 focus:ring-accent-blue/20"
+                            aria-describedby="submit-status"
+                        >
                             Book My Session
                         </button>
+                        <div id="submit-status" class="sr-only" aria-live="polite"></div>
                     </form>
                 </div>
 
@@ -230,13 +292,13 @@
                     <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
                         <h3 class="text-xl font-light mb-6 text-slate-800">Availability Calendar</h3>
                         <div class="mb-4 flex justify-between items-center">
-                            <button id="prev-month" class="text-accent-blue hover:text-hover-blue transition-colors">
+                            <button id="prev-month" class="text-accent-blue hover:text-hover-blue transition-colors p-2 rounded-lg hover:bg-light-blue">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                 </svg>
                             </button>
                             <h4 id="current-month" class="text-lg font-medium text-slate-800">December 2024</h4>
-                            <button id="next-month" class="text-accent-blue hover:text-hover-blue transition-colors">
+                            <button id="next-month" class="text-accent-blue hover:text-hover-blue transition-colors p-2 rounded-lg hover:bg-light-blue">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
@@ -288,18 +350,50 @@
 
     <!-- Success Modal -->
     <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-xl p-8 max-w-md mx-4">
+        <div class="bg-white rounded-xl p-8 max-w-md mx-4 max-h-[90vh] overflow-y-auto">
             <div class="text-center">
                 <div class="w-16 h-16 bg-success-green rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-medium text-slate-800 mb-2">Booking Confirmed!</h3>
-                <p class="text-cool-gray mb-6">Your session has been booked successfully. We'll send you a confirmation email shortly.</p>
-                <button onclick="closeSuccessModal()" class="bg-accent-blue text-white px-6 py-3 rounded-lg hover:bg-hover-blue transition-colors font-medium">
-                    Continue
-                </button>
+                <h3 class="text-xl font-medium text-slate-800 mb-2">Booking Submitted!</h3>
+                <p class="text-cool-gray mb-4">Your session request has been submitted successfully. We'll review it and confirm within 24 hours.</p>
+                
+                <div id="booking-details" class="bg-light-blue rounded-lg p-4 mb-6 text-left">
+                    <h4 class="font-medium text-slate-800 mb-2">Booking Details:</h4>
+                    <div id="booking-summary" class="text-sm text-cool-gray space-y-1">
+                        <!-- Booking details will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-start">
+                        <svg class="w-5 h-5 text-yellow-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <div class="text-sm text-yellow-800">
+                            <p class="font-medium">What happens next?</p>
+                            <ul class="mt-1 space-y-1">
+                                <li>• We'll review your booking request</li>
+                                <li>• You'll receive a confirmation email within 24 hours</li>
+                                <li>• We may contact you to discuss details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="closeSuccessModal()" class="flex-1 bg-accent-blue text-white px-6 py-3 rounded-lg hover:bg-hover-blue transition-colors font-medium">
+                        Continue
+                    </button>
+                    <button onclick="printBookingConfirmation()" class="flex-1 bg-light-gray text-slate-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                        </svg>
+                        Print
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -335,6 +429,67 @@
             });
         }
     </script>
+
+    <style>
+        /* Mobile-friendly calendar styles */
+        @media (max-width: 768px) {
+            #calendar-grid {
+                gap: 2px;
+            }
+            
+            #calendar-grid > div {
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                padding: 8px 4px;
+            }
+            
+            #calendar-grid > div:first-child {
+                min-height: auto;
+                padding: 8px 4px;
+                font-weight: 600;
+            }
+        }
+        
+        /* Touch-friendly buttons */
+        @media (max-width: 768px) {
+            button, input[type="submit"] {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .filter-btn, .filter-booking-btn {
+                padding: 12px 16px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Form improvements for mobile */
+        @media (max-width: 768px) {
+            .booking-form input,
+            .booking-form select,
+            .booking-form textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .booking-form .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading animation */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 
     <!-- Booking System JavaScript -->
     <script>
@@ -450,52 +605,273 @@
         document.getElementById('booking-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...';
+            submitBtn.disabled = true;
+            
+            // Validate and sanitize input
+            const validationResult = validateBookingForm();
+            if (!validationResult.isValid) {
+                showErrorMessage(validationResult.message);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+            
             const formData = {
-                id: Date.now().toString(),
-                name: document.getElementById('client-name').value,
-                email: document.getElementById('client-email').value,
-                phone: document.getElementById('client-phone').value,
-                service: document.getElementById('service-type').value,
+                id: generateBookingId(),
+                name: sanitizeInput(document.getElementById('client-name').value),
+                email: sanitizeInput(document.getElementById('client-email').value).toLowerCase(),
+                phone: sanitizeInput(document.getElementById('client-phone').value),
+                service: sanitizeInput(document.getElementById('service-type').value),
                 date: document.getElementById('booking-date').value,
                 time: document.getElementById('booking-time').value,
-                duration: document.getElementById('session-duration').value,
-                message: document.getElementById('client-message').value,
-                status: 'confirmed',
-                createdAt: new Date().toISOString()
+                duration: parseInt(document.getElementById('session-duration').value),
+                message: sanitizeInput(document.getElementById('client-message').value),
+                status: 'pending', // Changed to pending for admin approval
+                createdAt: new Date().toISOString(),
+                ipAddress: 'client-side', // Would be server-side in production
+                userAgent: navigator.userAgent
             };
             
-            // Validate required fields
-            if (!formData.name || !formData.email || !formData.service || !formData.date || !formData.time) {
-                alert('Please fill in all required fields.');
+            // Check for double booking with better conflict detection
+            const bookingConflict = checkBookingConflict(formData);
+            if (bookingConflict.hasConflict) {
+                showErrorMessage(bookingConflict.message);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
                 return;
             }
             
-            // Check if date is available
-            const isBooked = bookings.some(booking => booking.date === formData.date);
-            const isUnavailable = unavailableDates.includes(formData.date);
-            
-            if (isBooked) {
-                alert('This date is already booked. Please select another date.');
-                return;
-            }
-            
-            if (isUnavailable) {
-                alert('This date is unavailable. Please select another date.');
-                return;
-            }
-            
-            // Add booking
-            bookings.push(formData);
-            localStorage.setItem('bookings', JSON.stringify(bookings));
-            
-            // Show success modal
-            document.getElementById('success-modal').classList.remove('hidden');
-            
-            // Reset form
-            this.reset();
-            selectedDate = null;
-            updateCalendar();
+            // Simulate server processing delay
+            setTimeout(() => {
+                try {
+                    // Add booking
+                    bookings.push(formData);
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+                    
+                    // Show success modal
+                    document.getElementById('success-modal').classList.remove('hidden');
+                    
+                    // Populate booking details in the modal
+                    const bookingSummary = document.getElementById('booking-summary');
+                    bookingSummary.innerHTML = `
+                        <p><strong>Booking ID:</strong> ${formData.id}</p>
+                        <p><strong>Service:</strong> ${formData.service}</p>
+                        <p><strong>Date:</strong> ${formData.date}</p>
+                        <p><strong>Time:</strong> ${formData.time}</p>
+                        <p><strong>Duration:</strong> ${formData.duration} hour(s)</p>
+                        <p><strong>Email:</strong> ${formData.email}</p>
+                        <p><strong>Phone:</strong> ${formData.phone || 'N/A'}</p>
+                        <p><strong>Message:</strong> ${formData.message || 'N/A'}</p>
+                        <p><strong>Status:</strong> ${formData.status}</p>
+                        <p><strong>Submitted at:</strong> ${formData.createdAt}</p>
+                    `;
+                    
+                    // Track booking event
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'booking_submitted', {
+                            'event_category': 'booking',
+                            'event_label': formData.service
+                        });
+                    }
+                    
+                } catch (error) {
+                    showErrorMessage('Failed to save booking. Please try again.');
+                    console.error('Booking error:', error);
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }, 1000);
         });
+
+        // Comprehensive form validation
+        function validateBookingForm() {
+            const name = document.getElementById('client-name').value.trim();
+            const email = document.getElementById('client-email').value.trim();
+            const phone = document.getElementById('client-phone').value.trim();
+            const service = document.getElementById('service-type').value;
+            const date = document.getElementById('booking-date').value;
+            const time = document.getElementById('booking-time').value;
+            const duration = document.getElementById('session-duration').value;
+            
+            // Name validation
+            if (!name) {
+                showErrorMessage('Please enter your full name.');
+                return { isValid: false, message: 'Please enter your full name.' };
+            }
+            if (name.length < 2) {
+                showErrorMessage('Name must be at least 2 characters long.');
+                return { isValid: false, message: 'Name must be at least 2 characters long.' };
+            }
+            if (name.length > 100) {
+                showErrorMessage('Name is too long. Please use a shorter name.');
+                return { isValid: false, message: 'Name is too long. Please use a shorter name.' };
+            }
+            if (!/^[a-zA-Z\s\-'\.]+$/.test(name)) {
+                showErrorMessage('Name contains invalid characters. Please use only letters, spaces, hyphens, and apostrophes.');
+                return { isValid: false, message: 'Name contains invalid characters. Please use only letters, spaces, hyphens, and apostrophes.' };
+            }
+            
+            // Email validation
+            if (!email) {
+                showErrorMessage('Please enter your email address.');
+                return { isValid: false, message: 'Please enter your email address.' };
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showErrorMessage('Please enter a valid email address.');
+                return { isValid: false, message: 'Please enter a valid email address.' };
+            }
+            
+            // Phone validation (optional but if provided, must be valid)
+            if (phone) {
+                const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+                if (!phoneRegex.test(cleanPhone)) {
+                    showErrorMessage('Please enter a valid phone number.');
+                    return { isValid: false, message: 'Please enter a valid phone number.' };
+                }
+            }
+            
+            // Service validation
+            if (!service) {
+                showErrorMessage('Please select a service type.');
+                return { isValid: false, message: 'Please select a service type.' };
+            }
+            
+            // Date validation
+            if (!date) {
+                showErrorMessage('Please select a date for your session.');
+                return { isValid: false, message: 'Please select a date for your session.' };
+            }
+            
+            const selectedDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                showErrorMessage('Please select a future date.');
+                return { isValid: false, message: 'Please select a future date.' };
+            }
+            
+            // Time validation
+            if (!time) {
+                showErrorMessage('Please select a time for your session.');
+                return { isValid: false, message: 'Please select a time for your session.' };
+            }
+            
+            // Duration validation
+            if (!duration || duration < 1) {
+                showErrorMessage('Please select a valid session duration.');
+                return { isValid: false, message: 'Please select a valid session duration.' };
+            }
+            
+            return { isValid: true };
+        }
+
+        // Input sanitization
+        function sanitizeInput(input) {
+            if (typeof input !== 'string') return '';
+            
+            return input
+                .trim()
+                .replace(/[<>]/g, '') // Remove potential HTML tags
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .replace(/\//g, '&#x2F;');
+        }
+
+        // Generate unique booking ID
+        function generateBookingId() {
+            return 'BK' + Date.now() + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        // Check for booking conflicts
+        function checkBookingConflict(newBooking) {
+            const selectedDate = newBooking.date;
+            const selectedTime = newBooking.time;
+            const selectedDuration = newBooking.duration;
+            
+            // Check if date is unavailable
+            if (unavailableDates.includes(selectedDate)) {
+                return { hasConflict: true, message: 'This date is unavailable. Please select another date.' };
+            }
+            
+            // Check for existing bookings on the same date
+            const existingBookings = bookings.filter(booking => 
+                booking.date === selectedDate && booking.status !== 'cancelled'
+            );
+            
+            if (existingBookings.length === 0) {
+                return { hasConflict: false };
+            }
+            
+            // Check for time conflicts
+            const newStartTime = new Date(`2000-01-01T${selectedTime}`);
+            const newEndTime = new Date(newStartTime.getTime() + (selectedDuration * 60 * 60 * 1000));
+            
+            for (const existingBooking of existingBookings) {
+                const existingStartTime = new Date(`2000-01-01T${existingBooking.time}`);
+                const existingEndTime = new Date(existingStartTime.getTime() + (existingBooking.duration * 60 * 60 * 1000));
+                
+                // Check for overlap
+                if (newStartTime < existingEndTime && newEndTime > existingStartTime) {
+                    return { 
+                        hasConflict: true, 
+                        message: `This time slot conflicts with an existing booking. Please select a different time or date.` 
+                    };
+                }
+            }
+            
+            return { hasConflict: false };
+        }
+
+        // Show error message
+        function showErrorMessage(message) {
+            // Create error message element
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-4 right-4 bg-error-red text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-md';
+            errorDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(errorDiv);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'fixed top-4 right-4 bg-success-green text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-md';
+            successDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 5000);
+        }
 
         // Close success modal
         function closeSuccessModal() {
@@ -528,6 +904,16 @@
             }
             
             window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // Print booking confirmation
+        function printBookingConfirmation() {
+            const printContent = document.getElementById('success-modal').innerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // Reload to restore scroll position and other elements
         }
 
         // Mobile menu toggle
