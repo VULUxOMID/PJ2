@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and sensitive pages
+Disallow: /secure-access.html
+Disallow: /management-portal.html
+Disallow: /login.html
+Disallow: /admin.html
+
+# Disallow any files that might contain sensitive information
+Disallow: /*.json
+Disallow: /manifest.json
+
+# Allow important pages
+Allow: /index.html
+Allow: /gallery.html
+Allow: /about.html
+Allow: /booking.html
+
+# Sitemap (if you have one)
+# Sitemap: https://yourdomain.com/sitemap.xml 

@@ -3,25 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - SubjectPhoto</title>
+    <title>Redirecting... - SubjectPhoto</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Admin login for SubjectPhoto photography management system.">
-    <meta name="robots" content="noindex, nofollow">
+    <!-- Security Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex, nofollow">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                    },
                     colors: {
                         'cool-white': '#f0f9ff',
                         'soft-white': '#e0f2fe',
@@ -30,277 +23,31 @@
                         'soft-gray': '#94a3b8',
                         'light-gray': '#e0f2fe',
                         'accent-blue': '#3b82f6',
-                        'hover-blue': '#2563eb',
+                        'hover-blue': '#2563eb'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
         }
     </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-inter bg-blue-50 text-slate-700 min-h-screen">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-blue-50/95 backdrop-blur-sm border-b border-blue-200">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <a href="/" class="text-2xl font-semibold text-slate-800 hover:text-accent-blue transition-colors">
-                    SubjectPhoto
-                </a>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="/" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Home</a>
-                    <a href="/gallery.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Gallery</a>
-                    <a href="/about.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">About</a>
-                    <a href="/login.html" class="text-slate-800 hover:text-accent-blue transition-colors font-medium">Admin</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-slate-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
-                <div class="flex flex-col space-y-4">
-                    <a href="/" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Home</a>
-                    <a href="/gallery.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">Gallery</a>
-                    <a href="/about.html" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">About</a>
-                    <a href="/login.html" class="text-slate-800 hover:text-accent-blue transition-colors font-medium">Admin</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Login Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div class="w-full max-w-md">
-            <!-- Login Card -->
-            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
-                <!-- Header -->
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-accent-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-accent-blue" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <h1 class="text-2xl font-light text-slate-800 mb-2">Admin Login</h1>
-                    <p class="text-cool-gray font-light">Access your photography dashboard</p>
-                </div>
-
-                <!-- Error Message -->
-                <div id="error-message" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="text-red-700 text-sm font-medium" id="error-text"></span>
-                    </div>
-                </div>
-
-                <!-- Login Form -->
-                <form id="login-form" class="space-y-6">
-                    <!-- Username Field -->
-                    <div>
-                        <label for="username" class="block text-sm font-medium text-slate-800 mb-2">Username</label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            required
-                            class="w-full px-4 py-3 border border-light-gray rounded-lg focus:outline-none focus:border-accent-blue transition-colors bg-white text-slate-700"
-                            placeholder="Enter your username"
-                        >
-                    </div>
-
-                    <!-- Password Field -->
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-slate-800 mb-2">Password</label>
-                        <div class="relative">
-                            <input 
-                                type="password" 
-                                id="password" 
-                                name="password" 
-                                required
-                                class="w-full px-4 py-3 border border-light-gray rounded-lg focus:outline-none focus:border-accent-blue transition-colors bg-white text-slate-700 pr-12"
-                                placeholder="Enter your password"
-                            >
-                            <button 
-                                type="button" 
-                                id="toggle-password"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-cool-gray hover:text-slate-700 transition-colors"
-                            >
-                                <svg id="eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                                <svg id="eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Remember Me -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <input 
-                                type="checkbox" 
-                                id="remember" 
-                                name="remember"
-                                class="w-4 h-4 text-accent-blue border-light-gray rounded focus:ring-accent-blue focus:ring-2"
-                            >
-                            <label for="remember" class="ml-2 text-sm text-cool-gray font-light">Remember me</label>
-                        </div>
-                        <a href="#" class="text-sm text-accent-blue hover:text-hover-blue transition-colors font-medium">
-                            Forgot password?
-                        </a>
-                    </div>
-
-                    <!-- Login Button -->
-                    <button 
-                        type="submit" 
-                        id="login-btn"
-                        class="w-full bg-accent-blue hover:bg-hover-blue text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2"
-                    >
-                        <span id="login-text">Sign In</span>
-                        <svg id="login-spinner" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </button>
-                </form>
-
-                <!-- Demo Credentials -->
-                <div class="mt-8 p-4 bg-light-blue rounded-lg">
-                    <h3 class="text-sm font-medium text-slate-800 mb-2">Demo Credentials:</h3>
-                    <div class="text-sm text-cool-gray space-y-1">
-                        <p><strong>Username:</strong> admin</p>
-                        <p><strong>Password:</strong> photo123</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Back to Website -->
-            <div class="text-center mt-6">
-                <a href="/" class="text-cool-gray hover:text-accent-blue transition-colors font-medium">
-                    ← Back to Website
-                </a>
-            </div>
-        </div>
-    </section>
+<body class="bg-cool-white font-sans min-h-screen flex items-center justify-center">
+    <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-blue mx-auto mb-4"></div>
+        <h1 class="text-2xl font-light text-slate-800 mb-2">Redirecting...</h1>
+        <p class="text-cool-gray">Taking you to the secure login page</p>
+    </div>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Password visibility toggle
-        const togglePassword = document.getElementById('toggle-password');
-        const passwordInput = document.getElementById('password');
-        const eyeOpen = document.getElementById('eye-open');
-        const eyeClosed = document.getElementById('eye-closed');
-
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
-            
-            eyeOpen.classList.toggle('hidden');
-            eyeClosed.classList.toggle('hidden');
-        });
-
-        // Login form handling
-        const loginForm = document.getElementById('login-form');
-        const errorMessage = document.getElementById('error-message');
-        const errorText = document.getElementById('error-text');
-        const loginBtn = document.getElementById('login-btn');
-        const loginText = document.getElementById('login-text');
-        const loginSpinner = document.getElementById('login-spinner');
-
-        // Demo credentials
-        const DEMO_USERNAME = 'admin';
-        const DEMO_PASSWORD = 'photo123';
-
-        // Check if already logged in
-        if (localStorage.getItem('adminLoggedIn') === 'true') {
-            window.location.href = '/admin.html';
-        }
-
-        function showError(message) {
-            errorText.textContent = message;
-            errorMessage.classList.remove('hidden');
-        }
-
-        function hideError() {
-            errorMessage.classList.add('hidden');
-        }
-
-        function setLoading(loading) {
-            if (loading) {
-                loginText.textContent = 'Signing In...';
-                loginSpinner.classList.remove('hidden');
-                loginBtn.disabled = true;
-                loginBtn.classList.add('opacity-75');
-            } else {
-                loginText.textContent = 'Sign In';
-                loginSpinner.classList.add('hidden');
-                loginBtn.disabled = false;
-                loginBtn.classList.remove('opacity-75');
-            }
-        }
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            hideError();
-            setLoading(true);
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
-
-            // Simulate authentication delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Check credentials
-            if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
-                // Set login session
-                localStorage.setItem('adminLoggedIn', 'true');
-                localStorage.setItem('adminUsername', username);
-                
-                if (remember) {
-                    localStorage.setItem('rememberLogin', 'true');
-                }
-
-                // Success feedback
-                loginText.textContent = 'Success! Redirecting...';
-                
-                // Redirect to admin dashboard
-                setTimeout(() => {
-                    window.location.href = '/admin.html';
-                }, 500);
-            } else {
-                setLoading(false);
-                showError('Invalid username or password. Please try again.');
-                
-                // Clear password field
-                document.getElementById('password').value = '';
-            }
-        });
-
-        // Auto-fill if remembered
-        if (localStorage.getItem('rememberLogin') === 'true') {
-            document.getElementById('username').value = DEMO_USERNAME;
-            document.getElementById('remember').checked = true;
-        }
-
-        // Focus username field on load
-        document.getElementById('username').focus();
+        // Redirect to new secure access page
+        setTimeout(() => {
+            window.location.href = 'secure-access.html';
+        }, 2000);
     </script>
 </body>
 </html> 

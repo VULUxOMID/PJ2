@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Portal - SubjectPhoto</title>
+    
+    <!-- Security Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex, nofollow">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cool-white': '#f0f9ff',
+                        'soft-white': '#e0f2fe',
+                        'light-blue': '#f0f9ff',
+                        'cool-gray': '#64748b',
+                        'soft-gray': '#94a3b8',
+                        'light-gray': '#e0f2fe',
+                        'accent-blue': '#3b82f6',
+                        'hover-blue': '#2563eb',
+                        'success-green': '#10b981',
+                        'warning-orange': '#f59e0b',
+                        'error-red': '#ef4444'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-cool-white text-slate-700">
+    <!-- Session Check -->
+    <div id="session-check" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-blue mx-auto mb-4"></div>
+            <p class="text-cool-gray">Verifying session...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-light-gray">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-2xl font-light text-slate-800">SubjectPhoto</a>
+                    <span class="text-cool-gray">|</span>
+                    <span class="text-accent-blue font-medium">Management Portal</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-cool-gray" id="session-timer">Session: 30:00</span>
+                    <button id="logout-btn" class="text-error-red hover:text-red-700 transition-colors font-medium">
+                        <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <!-- Welcome Section -->
+        <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-light text-slate-800 mb-2">Welcome to Management Portal</h1>
+                    <p class="text-cool-gray">Manage your photography business from one secure location</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-cool-gray">Last login: <span id="last-login">Loading...</span></p>
+                    <p class="text-sm text-cool-gray">Session expires: <span id="session-expires">Loading...</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-accent-blue/10 rounded-lg">
+                        <svg class="w-6 h-6 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-cool-gray">Total Bookings</p>
+                        <p class="text-2xl font-bold text-slate-800" id="total-bookings-count">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-success-green/10 rounded-lg">
+                        <svg class="w-6 h-6 text-success-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-cool-gray">Confirmed</p>
+                        <p class="text-2xl font-bold text-slate-800" id="confirmed-bookings-count">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-warning-orange/10 rounded-lg">
+                        <svg class="w-6 h-6 text-warning-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-cool-gray">Pending</p>
+                        <p class="text-2xl font-bold text-slate-800" id="pending-bookings-count">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl border border-light-gray shadow-sm p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-error-red/10 rounded-lg">
+                        <svg class="w-6 h-6 text-error-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-cool-gray">Cancelled</p>
+                        <p class="text-2xl font-bold text-slate-800" id="cancelled-bookings-count">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <a href="#bookings" class="bg-white rounded-xl border border-light-gray shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="p-3 bg-accent-blue/10 rounded-lg">
+                        <svg class="w-6 h-6 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-slate-800">Manage Bookings</h3>
+                        <p class="text-sm text-cool-gray">View and manage all booking requests</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#availability" class="bg-white rounded-xl border border-light-gray shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="p-3 bg-success-green/10 rounded-lg">
+                        <svg class="w-6 h-6 text-success-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-slate-800">Availability</h3>
+                        <p class="text-sm text-cool-gray">Manage your schedule and availability</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#content" class="bg-white rounded-xl border border-light-gray shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="p-3 bg-warning-orange/10 rounded-lg">
+                        <svg class="w-6 h-6 text-warning-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-slate-800">Content Management</h3>
+                        <p class="text-sm text-cool-gray">Edit website content and settings</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-xl border border-light-gray shadow-sm p-8">
+            <h2 class="text-2xl font-light mb-6 text-slate-800">Recent Activity</h2>
+            <div id="recent-activity" class="space-y-4">
+                <div class="flex items-center p-4 bg-light-blue rounded-lg">
+                    <div class="w-2 h-2 bg-accent-blue rounded-full mr-4"></div>
+                    <div class="flex-1">
+                        <p class="text-sm text-slate-800">Loading recent activity...</p>
+                        <p class="text-xs text-cool-gray">Just now</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Session management
+        const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+        let sessionTimer;
+        
+        // Check session validity
+        function validateSession() {
+            const session = JSON.parse(localStorage.getItem('adminSession') || '{}');
+            const now = Date.now();
+            
+            if (!session.token || session.expires <= now) {
+                // Invalid or expired session
+                localStorage.removeItem('adminSession');
+                window.location.href = 'secure-access.html';
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Update session timer
+        function updateSessionTimer() {
+            const session = JSON.parse(localStorage.getItem('adminSession') || '{}');
+            const now = Date.now();
+            const remaining = Math.max(0, session.expires - now);
+            
+            const minutes = Math.floor(remaining / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            
+            document.getElementById('session-timer').textContent = `Session: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (remaining <= 0) {
+                logout();
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('adminSession');
+            window.location.href = 'secure-access.html';
+        }
+        
+        // Initialize session
+        function initSession() {
+            if (!validateSession()) {
+                return;
+            }
+            
+            const session = JSON.parse(localStorage.getItem('adminSession'));
+            
+            // Update UI with session info
+            document.getElementById('last-login').textContent = new Date(session.loginTime).toLocaleString();
+            document.getElementById('session-expires').textContent = new Date(session.expires).toLocaleString();
+            
+            // Start session timer
+            updateSessionTimer();
+            sessionTimer = setInterval(updateSessionTimer, 1000);
+            
+            // Hide loading screen
+            document.getElementById('session-check').style.display = 'none';
+            
+            // Load dashboard data
+            loadDashboardData();
+        }
+        
+        // Load dashboard data
+        function loadDashboardData() {
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            
+            // Update stats
+            document.getElementById('total-bookings-count').textContent = bookings.length;
+            document.getElementById('confirmed-bookings-count').textContent = bookings.filter(b => b.status === 'confirmed').length;
+            document.getElementById('pending-bookings-count').textContent = bookings.filter(b => b.status === 'pending').length;
+            document.getElementById('cancelled-bookings-count').textContent = bookings.filter(b => b.status === 'cancelled').length;
+            
+            // Load recent activity
+            loadRecentActivity();
+        }
+        
+        // Load recent activity
+        function loadRecentActivity() {
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const recentActivity = document.getElementById('recent-activity');
+            
+            // Get recent bookings (last 5)
+            const recentBookings = bookings
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 5);
+            
+            if (recentBookings.length === 0) {
+                recentActivity.innerHTML = `
+                    <div class="text-center py-8">
+                        <svg class="w-12 h-12 text-cool-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="text-cool-gray">No recent activity</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            recentActivity.innerHTML = recentBookings.map(booking => {
+                const statusColor = {
+                    'confirmed': 'bg-success-green',
+                    'pending': 'bg-warning-orange',
+                    'cancelled': 'bg-error-red'
+                };
+                
+                return `
+                    <div class="flex items-center p-4 bg-light-blue rounded-lg">
+                        <div class="w-2 h-2 ${statusColor[booking.status]} rounded-full mr-4"></div>
+                        <div class="flex-1">
+                            <p class="text-sm text-slate-800">
+                                <strong>${booking.name}</strong> booked a <strong>${booking.service}</strong> session
+                            </p>
+                            <p class="text-xs text-cool-gray">
+                                ${new Date(booking.createdAt).toLocaleString()} • Status: ${booking.status}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Event listeners
+        document.getElementById('logout-btn').addEventListener('click', logout);
+        
+        // Auto-logout on inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                logout();
+            }, SESSION_TIMEOUT);
+        }
+        
+        // Reset timer on user activity
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetInactivityTimer, true);
+        });
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initSession();
+            resetInactivityTimer();
+        });
+    </script>
+</body>
+</html> 

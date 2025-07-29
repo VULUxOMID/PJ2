@@ -2791,6 +2791,31 @@ Created: ${new Date(booking.createdAt).toLocaleString()}
 
         // Load booking data on page load
         document.addEventListener('DOMContentLoaded', loadBookingData);
+
+        // Session validation - redirect if not authenticated
+        function validateAdminSession() {
+            const session = JSON.parse(localStorage.getItem('adminSession') || '{}');
+            const now = Date.now();
+            
+            if (!session.token || session.expires <= now) {
+                // Not authenticated, redirect to secure login
+                window.location.href = 'secure-access.html';
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Check session on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!validateAdminSession()) {
+                return;
+            }
+            
+            // Continue with existing admin functionality
+            loadAboutPageData();
+            loadBookingData();
+        });
     </script>
 
     <style>

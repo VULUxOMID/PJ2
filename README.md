@@ -55,16 +55,54 @@ php -S localhost:8000
 
 ```
 SubjectPhoto/
-├── index.html          # Home page
-├── gallery.html        # Image gallery
-├── about.html          # About page
-├── login.html          # Admin login
-├── admin.html          # Admin dashboard
-├── manifest.json       # PWA manifest
-├── sw.js              # Service worker
-├── README.md          # This file
-└── DEPLOYMENT.md      # Deployment guide
+├── index.html              # Home page
+├── gallery.html            # Image gallery
+├── about.html              # About page
+├── booking.html            # Booking system
+├── secure-access.html      # Secure admin login
+├── management-portal.html  # Admin dashboard
+├── admin.html              # Legacy admin (redirects)
+├── login.html              # Legacy login (redirects)
+├── manifest.json           # PWA manifest
+├── sw.js                  # Service worker
+├── robots.txt             # Search engine protection
+├── SECURITY.md            # Security documentation
+├── README.md              # This file
+└── DEPLOYMENT.md          # Deployment guide
 ```
+
+## 🔐 Admin Access
+
+### Secure Admin Panel
+
+The website includes a comprehensive admin panel with enhanced security:
+
+- **Gallery Management**: Upload, organize, and manage photos
+- **About Page Editor**: Edit photographer information and social links
+- **Booking Management**: View and manage booking requests
+- **Data Export/Import**: Backup and restore website data
+- **Availability Management**: Mark dates as unavailable
+
+### Security Features
+
+- **Obscure URLs**: Admin pages use non-obvious URLs
+- **Session Management**: 30-minute timeout with auto-logout
+- **Login Protection**: 5 failed attempts = 15-minute lockout
+- **Search Engine Blocking**: Admin pages blocked from search engines
+- **Hidden Navigation**: Admin links removed from public pages
+
+### Access Instructions
+
+1. Navigate directly to `/secure-access.html`
+2. Use the provided credentials:
+   - Username: `admin`
+   - Password: `subjectphoto2024`
+3. Monitor the session timer in the top-right corner
+4. Use the logout button or wait for auto-logout
+
+**Important**: Change the default credentials immediately for production use.
+
+For detailed security information, see `SECURITY.md`.
 
 ## 🔧 Configuration
 

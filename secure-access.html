@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access - SubjectPhoto</title>
+    
+    <!-- Security Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex, nofollow">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cool-white': '#f0f9ff',
+                        'soft-white': '#e0f2fe',
+                        'light-blue': '#f0f9ff',
+                        'cool-gray': '#64748b',
+                        'soft-gray': '#94a3b8',
+                        'light-gray': '#e0f2fe',
+                        'accent-blue': '#3b82f6',
+                        'hover-blue': '#2563eb',
+                        'success-green': '#10b981',
+                        'error-red': '#ef4444'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-cool-white font-sans min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md mx-auto px-6">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-light text-slate-800 mb-2">SubjectPhoto</h1>
+            <p class="text-cool-gray">Secure Management Portal</p>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="bg-white rounded-xl border border-light-gray shadow-lg p-8">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl font-medium text-slate-800">Secure Access</h2>
+                <p class="text-cool-gray text-sm mt-2">Enter your credentials to continue</p>
+            </div>
+            
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium mb-2 text-slate-700">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required 
+                        class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors" 
+                        placeholder="Enter username"
+                        autocomplete="username"
+                    >
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium mb-2 text-slate-700">Password</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            required 
+                            class="w-full bg-white border border-light-gray rounded-lg px-4 py-3 pr-12 text-slate-700 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-colors" 
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                        >
+                        <button 
+                            type="button" 
+                            id="toggle-password" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-cool-gray hover:text-slate-700"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="remember-me" class="rounded border-light-gray text-accent-blue focus:ring-accent-blue">
+                        <span class="ml-2 text-sm text-cool-gray">Remember me</span>
+                    </label>
+                    <button type="button" id="forgot-password" class="text-sm text-accent-blue hover:text-hover-blue">Forgot password?</button>
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-accent-blue text-white px-6 py-3 rounded-lg hover:bg-hover-blue transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-accent-blue/20"
+                >
+                    Sign In
+                </button>
+            </form>
+            
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mt-4 p-4 bg-error-red/10 border border-error-red/20 rounded-lg">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-error-red mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span id="error-text" class="text-error-red text-sm"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Security Notice -->
+        <div class="text-center mt-6">
+            <p class="text-xs text-cool-gray">
+                This is a secure area. Unauthorized access attempts will be logged.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Default admin credentials (change these!)
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'subjectphoto2024'
+        };
+        
+        // Session management
+        const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+        let loginAttempts = 0;
+        const MAX_ATTEMPTS = 5;
+        const LOCKOUT_TIME = 15 * 60 * 1000; // 15 minutes
+        
+        // Check if already logged in
+        function checkSession() {
+            const session = JSON.parse(localStorage.getItem('adminSession') || '{}');
+            const now = Date.now();
+            
+            if (session.token && session.expires > now) {
+                // Valid session, redirect to admin
+                window.location.href = 'management-portal.html';
+                return;
+            } else if (session.expires && session.expires <= now) {
+                // Expired session, clear it
+                localStorage.removeItem('adminSession');
+            }
+        }
+        
+        // Create session
+        function createSession() {
+            const session = {
+                token: generateToken(),
+                expires: Date.now() + SESSION_TIMEOUT,
+                loginTime: Date.now(),
+                userAgent: navigator.userAgent
+            };
+            localStorage.setItem('adminSession', JSON.stringify(session));
+        }
+        
+        // Generate simple token
+        function generateToken() {
+            return 'admin_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+        
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Check for lockout
+            const lockout = JSON.parse(localStorage.getItem('loginLockout') || '{}');
+            if (lockout.until && lockout.until > Date.now()) {
+                const remaining = Math.ceil((lockout.until - Date.now()) / 1000 / 60);
+                showError(`Too many failed attempts. Try again in ${remaining} minutes.`);
+                return;
+            }
+            
+            // Validate credentials
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                // Successful login
+                loginAttempts = 0;
+                localStorage.removeItem('loginLockout');
+                createSession();
+                
+                // Show success and redirect
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Signing in...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    window.location.href = 'management-portal.html';
+                }, 1000);
+                
+            } else {
+                // Failed login
+                loginAttempts++;
+                
+                if (loginAttempts >= MAX_ATTEMPTS) {
+                    // Lockout
+                    const lockout = {
+                        until: Date.now() + LOCKOUT_TIME
+                    };
+                    localStorage.setItem('loginLockout', JSON.stringify(lockout));
+                    showError(`Too many failed attempts. Account locked for 15 minutes.`);
+                } else {
+                    const remaining = MAX_ATTEMPTS - loginAttempts;
+                    showError(`Invalid credentials. ${remaining} attempts remaining.`);
+                }
+            }
+        });
+        
+        // Toggle password visibility
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            
+            // Update icon
+            this.innerHTML = type === 'password' 
+                ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>'
+                : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>';
+        });
+        
+        // Forgot password (simple implementation)
+        document.getElementById('forgot-password').addEventListener('click', function() {
+            alert('Contact the system administrator to reset your password.\n\nDefault credentials:\nUsername: admin\nPassword: subjectphoto2024');
+        });
+        
+        // Check session on page load
+        checkSession();
+        
+        // Auto-logout on inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                localStorage.removeItem('adminSession');
+                window.location.href = 'secure-access.html';
+            }, SESSION_TIMEOUT);
+        }
+        
+        // Reset timer on user activity
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetInactivityTimer, true);
+        });
+        
+        resetInactivityTimer();
+    </script>
+</body>
+</html> 
